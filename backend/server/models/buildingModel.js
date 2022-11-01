@@ -1,15 +1,14 @@
-import mongoose from "mongoose";
-const BuildingSchema = new mongoose.Schema({
-    name:{
+const mongoose = require('mongoose'); 
 
+const buildingModel = new mongoose.Schema({
+    name:{
+        type: String,
+        unique: true,
+        required: true
     },
     carts:{
-        
-    },
-    numCarts:{
-        type: Number,
-    },
-
+        type: [Number] // array of cart id
+    }
 });
 
-export default mongoose.model("Building", BuildingSchema);
+module.exports = mongoose.model('buildingModel', buildingModel);
