@@ -4,7 +4,7 @@ const {
     user, 
     signUp, 
     login, 
-    getUserWithToken
+    // getUserWithToken
 } = require ('../controllers/userController'); 
 
 const userRouter = express.Router();
@@ -14,7 +14,7 @@ userRouter.get('/', user);
 //Logic 
 userRouter.get('/signUp', signUp); 
 userRouter.get('/login', login); 
-userRouter.get('/userInfo', getUserWithToken);
+// userRouter.get('/userInfo', getUserWithToken);
 
 
 

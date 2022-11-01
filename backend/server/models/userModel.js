@@ -7,11 +7,13 @@ const userModel = new mongoose.Schema({
     },
     email:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     uid:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password:{
         type: String,
@@ -19,12 +21,9 @@ const userModel = new mongoose.Schema({
     },
     isAdmin:{
         type: Boolean,
+        required: true,
         default: false
-    },
-    currentCartId:{
-        type: String,
-        default: null
     }
 });
 
-module.exports =  mongoose.model('userModel', userModel);
+module.exports = mongoose.model('userModel', userModel);
