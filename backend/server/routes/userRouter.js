@@ -3,14 +3,20 @@ const express = require('express');
 const {
     user, 
     signUp, 
-    login
+    login, 
+    getUserWithToken
 } = require ('../controllers/userController'); 
 
 const userRouter = express.Router();
 
 userRouter.get('/', user);
+
+//Logic 
 userRouter.get('/signUp', signUp); 
 userRouter.get('/login', login); 
+userRouter.get('/userInfo', getUserWithToken);
+
+
 
 //this will need to be refactored into the controllers folder 
 
