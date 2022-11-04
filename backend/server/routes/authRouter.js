@@ -1,13 +1,13 @@
-//Okay to be deleted
+// //Okay to be deleted
 
-const express = require ('express'); 
+// const express = require ('express'); 
 
-const {
-    auth 
-} = require ('../controllers/authController'); 
+// const {
+//     auth 
+// } = require ('../controllers/authController'); 
 
-const authRouter = express.Router();
+// const authRouter = express.Router();
 
-authRouter.get("/", auth); 
+// authRouter.get("/", auth); 
 
-module.exports = authRouter; 
+// module.exports = authRouter; 

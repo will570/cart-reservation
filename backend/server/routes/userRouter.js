@@ -9,7 +9,7 @@ const {
 
 const userRouter = express.Router();
 
-userRouter.get('/', user);
+userRouter.post('/', user);
 
 //Logic 
 userRouter.get('/signUp', signUp); 

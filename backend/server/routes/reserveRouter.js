@@ -1,10 +1,22 @@
+const express = require('express');
 
-//actions 
+const {
+    addReservation,
+    removeReservation,
+    reserveCart,
+    returnCart,
+    getAll
+} = require('../controllers/reserveController');
 
-//create table 
+const reservationRouter = express();
 
-//almost entirely admin actions 
-//get table 
-//update table 
-    //add cart to table 
-    //remove cart from table 
+// Unprotected: modifying the content may cause inconsistency
+reservationRouter.post("/addReservation/:cartId/:uid", addReservation);
+reservationRouter.delete("/removeReservation/:cartId", removeReservation);
+
+// Protected: safe to use
+reservationRouter.put("/reserveCart/:name/:uid", reserveCart);
+reservationRouter.put("/returnCart/:name/:cartId", returnCart);
+reservationRouter.get("/getAll", getAll);
+
+module.exports = reservationRouter;
