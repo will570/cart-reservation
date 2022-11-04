@@ -1,7 +1,10 @@
 const userModel = require ('../models/userModel'); 
 
-user = async (req, res) => {
-    res.send('user page endpoint!'); 
+
+const user = async (req, res) => {
+    const newUser = new userModel(req.body);
+    newUser.save();
+    return res.status(200).json("user added");
 }
 
 signUp = async (req, res) => {

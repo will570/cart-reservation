@@ -9,7 +9,7 @@ const cartModel = new mongoose.Schema({
     damaged:{
         type: Boolean,
         default: false,
-        required: true
+        // not required, since default is already false
     }
 });
 
