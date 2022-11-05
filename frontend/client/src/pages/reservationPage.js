@@ -3,6 +3,9 @@ import React from 'react';
 import {Button, Box, Grid} from '@material-ui/core';
 
 function ReservationPage() {
+    /* 
+    * This is the skeleton for the reservation page. 
+    */
     return (
         <div className="reservation">
         <Box component="h1" display="inline" m={3}>
@@ -35,12 +38,14 @@ function ReservationPage() {
                 justifyContent: "flex-start",
                 alignItems: "flex-start", 
             }}>  
+                // This is the reservation button.
                 <Button variant="contained"
                     p={2} 
                     sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                 >
                     Reserve
                 </Button>
+                
                 <Box sx={{ 
                     backgroundColor: '#ecece4',
                     component: "fieldset",
