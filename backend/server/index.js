@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const express = require ('express');
+const bodyParser = require('body-parser');
 const cors = require ('cors');
 const connectDB = require('./mongodb');
 const mongoose = require('mongoose');
@@ -15,6 +16,10 @@ connectDB();
 //Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
 //Define routes 
 //app.use("/api/auth", require('./routes/authRouter'));
