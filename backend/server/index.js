@@ -22,6 +22,8 @@ app.use("/api/user", require('./routes/userRouter'));
 app.use("/api/cart", require('./routes/cartRouter'));
 app.use("/api/building", require('./routes/buildingRouter'));
 app.use("/api/reservation", require('./routes/reserveRouter'));
+app.use("/api/message", require('./routes/messageRouter'));
+app.use("/api/reply", require('./routes/replyRouter'));
 
 //Connect to port
 app.listen(PORT, () => {

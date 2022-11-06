@@ -6,9 +6,9 @@ const replyModel = new mongoose.Schema({
         default: null
     },
     sender:{
-        type: String, // sender name
+        type: String, // sender uid
         required: true
     }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('replyModel', replyModel);

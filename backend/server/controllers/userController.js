@@ -17,6 +17,8 @@ login = async (req, res) => {
     res.send('login page!'); 
 }
 
+// get name by uid
+
 module.exports = {
     user, 
     signUp, 

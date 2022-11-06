@@ -10,7 +10,7 @@ const {
     getAll
 } = require('../controllers/buildingController');
 
-const buildingRouter = express();
+const buildingRouter = express.Router();
 
 // Unprotected: modifying the content may cause inconsistency
 buildingRouter.put('/addCart/:name/:cartId', addCart);      // Add a cartId to a building

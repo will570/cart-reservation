@@ -9,7 +9,7 @@ const {
     getAll
 } = require('../controllers/cartController');
 
-const cartRouter = express(); 
+const cartRouter = express.Router(); 
 
 // Protected: safe to use
 

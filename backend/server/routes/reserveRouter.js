@@ -8,7 +8,7 @@ const {
     getAll
 } = require('../controllers/reserveController');
 
-const reservationRouter = express();
+const reservationRouter = express.Router();
 
 // Unprotected: modifying the content may cause inconsistency
 reservationRouter.post("/addReservation/:cartId/:uid", addReservation);     // Create a reservation with given cartId and uid from req.params
