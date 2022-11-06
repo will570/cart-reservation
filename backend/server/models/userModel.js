@@ -7,7 +7,6 @@ const userModel = new mongoose.Schema({
     },
     email:{
         type: String,
-        required: true,
         unique: true
     },
     uid:{
@@ -23,6 +22,10 @@ const userModel = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    token: {
+        type: String, 
+        default: ''
     }
 });
 
