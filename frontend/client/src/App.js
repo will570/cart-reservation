@@ -1,17 +1,20 @@
 import React from 'react'; 
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import ReservationPage from './pages/ReservationPage';
 
-const App = () => {
+function App() {
     return (
-        <div>
-            <h1>
-                App
-            </h1>
+        <div className="App">
+            <Router>
+                <Routes>
+                <Route path="/reservation" element={<ReservationPage />} />
+
+                </Routes>
+            </Router>
         </div>
     );
 }
 
 export default App; 
 
-//react-router-dom browserRouter, useNavigate 
-//material-ui 
 
