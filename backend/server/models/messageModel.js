@@ -1,4 +1,6 @@
+const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
+const replyModel = require('./replyModel')
 
 const messageModel = new mongoose.Schema({
     content:{
@@ -6,13 +8,13 @@ const messageModel = new mongoose.Schema({
         default: null
     },
     sender:{
-        type: String, // user name from which the message originates
+        type: String, // uid from which the message originates
         required: true
     },
     replies:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'replyModel'
     }]
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('messageModel', messageModel);

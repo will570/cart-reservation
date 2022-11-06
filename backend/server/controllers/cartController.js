@@ -27,7 +27,7 @@ const getCart = async (req, res) => {
             return res.status(200).json(cart);
         }
         else{
-            return res.status(401).json(`cartId does not exist`);
+            return res.status(404).json(`cartId does not exist`);
         }
     } catch (err){
         return res.status(401).json(err);
@@ -46,7 +46,7 @@ const setCart = async (req, res) => {
             return res.status(200).json(updateCart);
         }
         else{
-            return res.status(401).json(`cartId does not exist`);
+            return res.status(404).json(`cartId does not exist`);
         }
     } catch (err){
         res.status(401).json(err);
@@ -67,7 +67,7 @@ const setDamage = async (req, res) => {
             return res.status(200).json(updateCart);
         }
         else{
-            return res.status(401).json(`cartId does not exist`);
+            return res.status(404).json(`cartId does not exist`);
         }
     } catch (err){
         return res.status(401).json(err);

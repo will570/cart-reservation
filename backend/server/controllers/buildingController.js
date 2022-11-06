@@ -1,5 +1,4 @@
 const buildingModel = require('../models/buildingModel');
-const building = require('../models/buildingModel');
 const cartModel = require('../models/cartModel');
 const reservationModel = require('../models/reservationModel');
 
@@ -62,10 +61,10 @@ const addCart = async (req, res) => {
             return res.status(200).json("cart added");
         }
         else if(!building){
-            return res.status(401).json("building does not exist");
+            return res.status(404).json("building does not exist");
         }
         else if(!cart){
-            return res.status(401).json("cart does not exist");
+            return res.status(404).json("cart does not exist");
         }
     } catch (err){
         return res.status(401).json(err);
@@ -85,7 +84,7 @@ const removeCart = async (req, res) => {
         // Make sure the cart is in the building
         const cart = await building.carts.includes(cartId);
         if(!cart){
-            return res.status(401).json("cart does not exist");
+            return res.status(404).json("cart does not exist");
         }
 
         // Remove cart
@@ -106,7 +105,7 @@ const getCart = async (req, res) => {
         // Make sure building name is valid
         const building = await buildingModel.findOne({"name": name});
         if(!building){
-            return res.status(401).json(`building does not exist`);
+            return res.status(404).json(`building does not exist`);
         }
 
         // Return the first undamaged cart in the building
@@ -128,7 +127,7 @@ const getNum = async (req, res) => {
         // Make sure building name is valid
         const building = await buildingModel.findOne({"name": name});
         if(!building){
-            return res.status(401).json(`building does not exist`);
+            return res.status(404).json(`building does not exist`);
         }
 
         // Count the number of undamaged cart

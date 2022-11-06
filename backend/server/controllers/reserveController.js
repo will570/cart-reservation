@@ -19,10 +19,10 @@ const addReservation = async (req, res) => {
             return res.status(200).json("reservation added");
         }
         else if(!cart){
-            return res.status(401).json("cartId does not exist");
+            return res.status(404).json("cartId does not exist");
         }
         else if(!user){
-            return res.status(401).json("uid does not exist");
+            return res.status(404).json("uid does not exist");
         }
     } catch (err) {
         return res.status(401).json(err);
@@ -39,7 +39,7 @@ const removeReservation = async (req, res) => {
             return res.status(200).json("reservation deleted");
         }
         else{
-            return res.status(401).json("reservation does not exist");
+            return res.status(404).json("reservation does not exist");
         }
     } catch (err){
         return res.status(401).json(err);
@@ -75,7 +75,7 @@ const reserveCart = async (req, res) => {
             const savedReservation = await newReservation.save();
         }
         else{
-            return res.status(401).json("uid does not exist");
+            return res.status(404).json("uid does not exist");
         }
         // Delete cart
         const updateBuilding = await buildingModel.findOneAndUpdate(
@@ -95,12 +95,12 @@ const returnCart = async (req, res) => {
         const {name, cartId} = req.params;
         const reservation = await reservationModel.findOne({"cartId": cartId});
         if(!reservation){
-            return res.status(401).json("reservation does not exist");
+            return res.status(404).json("reservation does not exist");
         }
         // Add cart to building
         const building = await buildingModel.findOne({"name": name});
         if(!building){
-            return res.status(401).json("building does not exist");
+            return res.status(404).json("building does not exist");
         }
         const updateBuilding = await buildingModel.findOneAndUpdate(
             {"name": name},
@@ -110,7 +110,7 @@ const returnCart = async (req, res) => {
         // Delete reservation
         const deleteReservation = await reservationModel.deleteOne({"cartId": cartId});
         return res.status(200).json(updateBuilding);
-    } catch (err){
+    } catch (err) {
         return res.status(401).json(err);
     }
 }
