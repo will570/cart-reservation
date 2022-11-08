@@ -1,13 +1,16 @@
-// //Okay to be deleted
+const express = require('express'); 
 
-// const express = require ('express'); 
+const {
+    verifyToken, 
+    verifyAdmin
+} = require ('../controllers/authController'); 
 
-// const {
-//     auth 
-// } = require ('../controllers/authController'); 
+const authRouter = express.Router();
 
-// const authRouter = express.Router();
+authRouter.get("/verifyAuth", verifyToken, (req, res) => {
+    res.status(200).json({ message: "welcome, verified user" }); 
+}); 
 
-// authRouter.get("/", auth); 
+authRouter.get("/verifyAdmin", verifyAdmin); 
 
-// module.exports = authRouter; 
+module.exports = authRouter; 
