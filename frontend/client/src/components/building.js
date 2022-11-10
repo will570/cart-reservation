@@ -1,13 +1,13 @@
 import React from 'react';
 //import button from '../components/button.js';
-import {Button, Box, Grid} from '@material-ui/core';
+import {Button, Box, Grid, Typography} from '@material-ui/core';
 
 function Building() {
     /* 
     * This is the building component. 
     */
     return (
-        <div className="building">
+        <Box width={1}>
             <Box 
                 sx={{
                     component: "fieldset", 
@@ -15,7 +15,9 @@ function Building() {
                     display: "block",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    border: '3px solid grey', }}
+                    border: '3px solid grey',
+                    width: '1', 
+                }}
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
@@ -52,10 +54,11 @@ function Building() {
                         alignItems: "flex-start",
                     }}
                     >  
+
                     </Box>
                 </Box>
             </Box>
-        </div>
+        </Box>
     );
 }
 
