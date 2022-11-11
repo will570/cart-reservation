@@ -2,7 +2,7 @@ import React from 'react';
 //import button from '../components/button.js';
 import {Button, Box, Grid, Typography} from '@material-ui/core';
 
-function Building() {
+function Building(props) {
     /* 
     * This is the building component. 
     */
@@ -21,10 +21,10 @@ function Building() {
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
-                        De Neve 
+                        {props.name} 
                     </Box>
                     <Box component="h2" display= "inline" >
-                        : 20 
+                        : {props.n_carts} 
                     </Box>
                 </Box>
                 <Box sx={{ 

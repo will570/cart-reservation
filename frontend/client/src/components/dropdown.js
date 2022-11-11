@@ -24,7 +24,7 @@ function Dropdown() {
             <Typography sx={{ color: 'text.secondary' }}>: 20</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Building/>
+            <Building name="De Neve" n_carts={20}/>
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -39,7 +39,7 @@ function Dropdown() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-
+            <Building name="Sproul" n_carts={20}/>
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -56,7 +56,7 @@ function Dropdown() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-
+            <Building name="Rieber" n_carts={20}/>
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -71,7 +71,7 @@ function Dropdown() {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-
+            <Building name="Hedrick" n_carts={20}/>
           </AccordionDetails>
         </Accordion>
       </div>
