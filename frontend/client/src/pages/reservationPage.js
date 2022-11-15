@@ -1,7 +1,7 @@
 import React from 'react';
 //import button from '../components/button.js';
-import {Drawer, Divider, Box} from '@material-ui/core';
-import Building from '../components/building';
+import {Button, Drawer, Divider, Box} from '@material-ui/core';
+import Dropdown from '../components/dropdown';
 
 function ReservationPage() {
     /* 
@@ -21,16 +21,23 @@ function ReservationPage() {
                 }}
                 open
                 >
-            <Box component="h2" display="inline" m={3}>
-                        Hello 
-            </Box>
+                <Box component="h2" display="inline" m={3}>
+                            Hello 
+                </Box>
+                <Button variant="contained"
+                        shape="round"
+                        p={2} 
+                        sx={{m: 5, p: 3, backgroundColor: '#99dfff'}}
+                >
+                    Logout
+                </Button>
             </Drawer>
             <Box
                 component="main"
                 justify="flex-start"
-                sx={{ flexGrow: 1, pl: 15}}
+                sx={{ flexGrow: 1, pl: 15, pt: 3}}
             >
-                <Building/>
+                <Dropdown/>
             </Box>
             
         </div>
