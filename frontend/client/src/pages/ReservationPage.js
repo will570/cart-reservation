@@ -1,6 +1,6 @@
 import React from 'react';
 //import button from '../components/button.js';
-import {Button, Grid, Box, Paper} from '@material-ui/core';
+import {Button, Grid, Box} from '@material-ui/core';
 import Dropdown from '../components/dropdown';
 
 function ReservationPage() {
