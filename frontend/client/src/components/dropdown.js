@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core';
+import {Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Building from './building';
 
@@ -18,10 +18,16 @@ function Dropdown() {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography component="h2" sx={{ width: '33%', flexShrink: 0 }}>
-              De Neve
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>: 20</Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <Typography component="h2">
+                  De Neve
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography component="h2"> 20</Typography>
+              </Grid>
+            </Grid>
           </AccordionSummary>
           <AccordionDetails>
             <Building name="De Neve" n_carts={20}/>
@@ -33,10 +39,16 @@ function Dropdown() {
             aria-controls="panel2bh-content"
             id="panel2bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Sproul</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              : 20
-            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <Typography component="h2">
+                  Sproul
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography component="h2"> 20</Typography>
+              </Grid>
+            </Grid>
           </AccordionSummary>
           <AccordionDetails>
             <Building name="Sproul" n_carts={20}/>
@@ -48,12 +60,16 @@ function Dropdown() {
             aria-controls="panel3bh-content"
             id="panel3bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              Rieber
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              : 20
-            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <Typography component="h2">
+                  Rieber
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography component="h2"> 20</Typography>
+              </Grid>
+            </Grid>
           </AccordionSummary>
           <AccordionDetails>
             <Building name="Rieber" n_carts={20}/>
@@ -65,10 +81,16 @@ function Dropdown() {
             aria-controls="panel4bh-content"
             id="panel4bh-header"
           >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Hedrick</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              : 20
-            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={7}>
+                <Typography component="h2">
+                  Hedrick
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography component="h2"> 20</Typography>
+              </Grid>
+            </Grid>
           </AccordionSummary>
           <AccordionDetails>
             <Building name="Hedrick" n_carts={20}/>
