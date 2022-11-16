@@ -1,6 +1,6 @@
 import React from 'react';
 //import button from '../components/button.js';
-import {Button, Box, Grid, Typography} from '@material-ui/core';
+import {Button, Box, Typography} from '@material-ui/core';
 
 function Building(props) {
     /* 
@@ -21,10 +21,7 @@ function Building(props) {
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
-                        {props.name} 
-                    </Box>
-                    <Box component="h2" display= "inline" >
-                        : {props.n_carts} 
+                        {props.name} : {props.n_carts} 
                     </Box>
                 </Box>
                 <Box sx={{ 
@@ -38,7 +35,10 @@ function Building(props) {
                 }}>  
                 
                     <Button variant="contained"
-                        p={2} 
+                        p={2}
+                        onClick={() => {
+                            alert('Reserved!');
+                        }} 
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                     >
                         Reserve
@@ -54,7 +54,9 @@ function Building(props) {
                         alignItems: "flex-start",
                     }}
                     >  
+                        <Typography variant="h1" component="h2">
 
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
