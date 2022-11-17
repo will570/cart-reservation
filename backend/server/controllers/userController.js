@@ -121,6 +121,12 @@ signIn = async (req, res) => {
     }
 }
 
+// getUser = async (req, res) => {
+//     try {
+//         const user = await UserModel.find
+//     }
+// }
+
 module.exports = { 
     signUp, 
     signIn

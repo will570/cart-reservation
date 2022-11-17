@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 //Define routes 
-//app.use("/api/auth", require('./routes/authRouter'));
+app.use("/api/auth", require('./routes/authRouter'));
 app.use("/api/user", require('./routes/userRouter'));
 app.use("/api/cart", require('./routes/cartRouter'));
 app.use("/api/building", require('./routes/buildingRouter'));
