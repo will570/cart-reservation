@@ -15,7 +15,7 @@ function ReservationPage() {
             p:2 
         }}
         >
-            <Grid container spacing={2} columns={20} direction="row">
+            <Grid container spacing={5} direction="row">
                 <Grid item xs="auto">
                     <Sidebar />
                 </Grid>
