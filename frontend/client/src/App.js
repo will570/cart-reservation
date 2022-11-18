@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import ReservationPage from './pages/ReservationPage';
 import LoginForm from './pages/LoginPage';
 import Sidebar from './components/Sidebar'; 
+import MessagePage from './pages/MessagePage';
 
 function App() {
     return (
@@ -12,7 +13,7 @@ function App() {
                 <Route path="/reservation" element={<ReservationPage />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/sidebar" element={<Sidebar />} />
-
+                <Route path="/message" element={<MessagePage />} />
                 </Routes>
             </Router>
         </div>
