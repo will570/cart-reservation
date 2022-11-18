@@ -7,7 +7,7 @@ function SidebarLink({text, Icon}) {
 
     return (
         <div>
-            <Button variant="outlined" startIcon={<Icon />}>
+            <Button variant="outlined" startIcon={<Icon />} size="small">
                 {text} 
             </Button>
         </div>

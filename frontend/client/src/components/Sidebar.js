@@ -1,7 +1,7 @@
 import React from 'react'; 
 import SidebarLink from './SidebarLink.js'; 
+import {Box} from '@material-ui/core';
 import {Grid} from '@material-ui/core';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,41 +11,44 @@ import HomeIcon from "@material-ui/icons/Home";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
 function Sidebar() {
+
     return (
-        <Box sx={{ 
-            width: '100%', 
-            height: '100%',
-            display: 'flex', }}>
-            <CssBaseline />
-            <Paper
+        <Box
+        sx={{
+            m:2, 
+            p:2
+        }}
+        >
+            {/* <Paper
                 sx={{
                 p: 2, 
-                width: '20%', 
+                width: '12%', 
                 height: '100%', 
                 minHeight: '100vh', 
                 backgroundColor: (theme) =>
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                 }}
-            >
+            > */}
                 <Grid 
                 sx={{
-                    minHeight: '100vh'
+                    minHeight: '100vh',
+                    width: '10%',
                 }}
                 container
                 
                 spacing={10}
                 direction="column"
-                justifyContent="flex-end"
                 alignItems="center"
+                wrap="nowrap"
+                zeroMinWidth
                 >
-
                     <Grid item xs>
-                        <Typography variant="h4" gutterBottom>
+                        <Typography variant="h5" gutterBottom>
                             Welcome 
                         </Typography>
                     </Grid>
 
-                    <Grid item xs container spacing={2}>
+                    <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
 
                         <Grid item>
                             <SidebarLink text = "Reservation"  Icon={HomeIcon} /> 
@@ -61,7 +64,7 @@ function Sidebar() {
                     </Grid>
                   
                 </Grid>
-            </Paper>
+            {/* </Paper> */}
         </Box>
     ); 
 }

@@ -1,37 +1,34 @@
 import React from 'react';
-//import button from '../components/button.js';
-import {Button, Grid, Box} from '@material-ui/core';
+import {Grid, Box} from '@material-ui/core';
+import Typography from '@mui/material/Typography';
+
 import Dropdown from '../components/dropdown';
+import Sidebar from '../components/Sidebar'; 
 
 function ReservationPage() {
-    /* 
-    * This is the skeleton for the reservation page. 
-    */
 
     return (
-        <div className="reservation">
-            <Box component="h1" display="inline" m={3} pl = {15}>
-                        Reservation 
-            </Box>
-            <Grid container spacing={2}>
-                <Grid item xs={2}>
-
-                    <Box component="h2" display="inline" m={3}>
-                                Hello 
-                    </Box>
-                    <Button variant="contained"
-                            shape="round"
-                            p={2} 
-                            sx={{m: 5, p: 3, backgroundColor: '#99dfff'}}
-                    >
-                        Logout
-                    </Button>
+        <Box
+        sx={{
+            flexGrow: 1, 
+            m:2,
+            p:2 
+        }}
+        >
+            <Grid container spacing={2} columns={20} direction="row">
+                <Grid item xs="auto">
+                    <Sidebar />
                 </Grid>
-            <Grid item xs={8}>
-                <Dropdown/>
+                <Grid container item xs direction="column" spacing={5}> 
+                    <Grid item xs>
+                        <Typography variant="h2" gutterButtom>
+                            Reservation
+                        </Typography>
+                    </Grid>
+                    <Dropdown />
+                </Grid>
             </Grid>
-            </Grid>
-        </div>
+        </Box>
     );
 }
 

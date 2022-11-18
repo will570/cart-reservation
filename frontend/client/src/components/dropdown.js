@@ -12,90 +12,92 @@ function Dropdown() {
   
     return (
       <div>
-        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={7}>
-                <Typography component="h2">
-                  De Neve
-                </Typography>
+        <Grid>
+          <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={7}>
+                  <Typography component="h2">
+                    De Neve
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography component="h2"> 20</Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <Typography component="h2"> 20</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Building name="De Neve" n_carts={20}/>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={7}>
+                  <Typography component="h2">
+                    Sproul
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography component="h2"> 20</Typography>
+                </Grid>
               </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Building name="De Neve" n_carts={20}/>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={7}>
-                <Typography component="h2">
-                  Sproul
-                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Building name="Sproul" n_carts={20}/>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3bh-content"
+              id="panel3bh-header"
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={7}>
+                  <Typography component="h2">
+                    Rieber
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography component="h2"> 20</Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <Typography component="h2"> 20</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Building name="Rieber" n_carts={20}/>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel4bh-content"
+              id="panel4bh-header"
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={7}>
+                  <Typography component="h2">
+                    Hedrick
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography component="h2"> 20</Typography>
+                </Grid>
               </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Building name="Sproul" n_carts={20}/>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={7}>
-                <Typography component="h2">
-                  Rieber
-                </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography component="h2"> 20</Typography>
-              </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Building name="Rieber" n_carts={20}/>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={7}>
-                <Typography component="h2">
-                  Hedrick
-                </Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Typography component="h2"> 20</Typography>
-              </Grid>
-            </Grid>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Building name="Hedrick" n_carts={20}/>
-          </AccordionDetails>
-        </Accordion>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Building name="Hedrick" n_carts={20}/>
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
       </div>
     );
   }
