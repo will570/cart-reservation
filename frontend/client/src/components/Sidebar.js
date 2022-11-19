@@ -51,11 +51,11 @@ function Sidebar() {
                     <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
 
                         <Grid item>
-                            <SidebarLink text = "Reservation"  Icon={HomeIcon} /> 
+                            <SidebarLink text = "Reserve"  Icon={HomeIcon} /> 
                         </Grid>
 
                         <Grid item>
-                            <SidebarLink text = "Message Board" Icon={MailOutlineIcon} />   
+                            <SidebarLink text = "Message" Icon={MailOutlineIcon} />   
                         </Grid>
 
                         <Grid item>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Building from './building';
+import axios from 'axios';
 
 function Dropdown() {
     const [expanded, setExpanded] = React.useState(false);
@@ -9,7 +10,22 @@ function Dropdown() {
     const handleChange = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
-  
+    
+    const [dataRieber, setDataRieber] = useState([]);
+    const [dataSproul, setDataSproul] = useState([]);
+    //console.log('start')
+    const getNumCarts = async (setHallData, name) => {
+      console.log(name);
+        const { data } = await axios.get(`http://localhost:8800/api/building/getNum/${name}`);
+        setHallData(data);
+        //console.log(data);
+    };
+    useEffect(() => {
+      getNumCarts(setDataRieber, 'Rieber');
+      getNumCarts(setDataSproul, 'Sproul');
+      //getNumCarts(setDataHedrick);
+  }, []);
+
     return (
       <div>
         <Grid>
@@ -47,12 +63,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> 20</Typography>
+                  <Typography component="h2"> {dataSproul}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Sproul" n_carts={20}/>
+              <Building name="Sproul" n_carts={dataSproul}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -68,12 +84,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> 20</Typography>
+                  <Typography component="h2"> {dataRieber}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Rieber" n_carts={20}/>
+              <Building name="Rieber" n_carts={dataRieber}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -89,7 +105,7 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> 20</Typography>
+                  <Typography component="h2"> {20}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
