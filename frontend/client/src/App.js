@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, {useCallback} from 'react'; 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import ReservationPage from './pages/ReservationPage';
@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import Dropdown from './components/dropdown'; 
 
 function App() {
+
     return (
         <div className="App">
             <Router>
