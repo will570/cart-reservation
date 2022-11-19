@@ -3,8 +3,8 @@ import SidebarLink from './SidebarLink.js';
 import {Box} from '@material-ui/core';
 import {Grid} from '@material-ui/core';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import Paper from '@mui/material/Paper';
+// import CssBaseline from '@material-ui/core/CssBaseline';
 
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import HomeIcon from "@material-ui/icons/Home";
@@ -51,16 +51,17 @@ function Sidebar() {
                     <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
 
                         <Grid item>
-                            <SidebarLink text = "Reserve"  Icon={HomeIcon} /> 
+                            <SidebarLink text = "Reserve"  Icon={HomeIcon} route="/reservation"/> 
                         </Grid>
 
                         <Grid item>
-                            <SidebarLink text = "Message" Icon={MailOutlineIcon} />   
+                            <SidebarLink text = "Message" Icon={MailOutlineIcon} route="/message"/>   
                         </Grid>
 
                         <Grid item>
-                            <SidebarLink text = "Logout" Icon={PermIdentityIcon} /> 
+                            <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
                         </Grid>
+
                     </Grid>
                   
                 </Grid>

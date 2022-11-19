@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'; 
+import React from 'react'; 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import ReservationPage from './pages/ReservationPage';
@@ -8,6 +8,8 @@ import Dropdown from './components/dropdown';
 import AdminReservationTable from './pages/AdminReservationTable';
 import AdminCartManagement from './pages/AdminCartManagement';
 
+import Login from './pages/Login';
+
 function App() {
 
     return (
@@ -16,6 +18,7 @@ function App() {
                 <Routes>
                 <Route path="/reservation" element={<ReservationPage />} />
                 <Route path="/login" element={<LoginForm />} />
+                <Route path="/sign-in" element={<Login />} />
 
                 {/*Components*/}
                 <Route path="/sidebar" element={<Sidebar />} />
