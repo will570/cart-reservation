@@ -3,7 +3,7 @@ import {Grid, Box} from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 
 import Dropdown from '../components/dropdown';
-import Sidebar from '../components/Sidebar'; 
+import Sidebar from '../components/Navigation/Sidebar'; 
 
 function ReservationPage() {
 

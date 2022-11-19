@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const express = require ('express');
 const bodyParser = require('body-parser');
 const cors = require ('cors');
-const connectDB = require('./mongodb');
+const connectDB = require('./config/mongodb');
 const mongoose = require('mongoose');
 
 dotenv.config();

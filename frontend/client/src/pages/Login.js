@@ -1,10 +1,17 @@
-import React, {useState} from 'react'; 
+import React, {useState, useEffect} from 'react'; 
 import {Paper, Grid, Typography, Container, Button} from '@material-ui/core'; 
+import Alert from '@mui/material/Alert';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from '../api/axios';
 
 import Input from '../components/Authentication/Input'; 
+import useAuth from '../hooks/useAuth';
 
+const LOGIN_URL = '/user/signIn';
+
+//Styling 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -21,21 +28,29 @@ const SubmitButton = styled(Button) (({ theme }) => ({
     color: theme.palette.text.primary
 })); 
 
+//Login function 
 const Login = () => {
 
+    //set auth, auth data needed for login component 
+    //if successfully authenticated when login, set new auth state and store in context
+    const { setAuth } = useAuth();  
+
+    //navigation 
+    const navigate = useNavigate(); 
+    const location = useLocation(); 
+    
+
+    //set initial field data of login form 
     const initialState = {
         uid: '',
         password: '' 
     }; 
 
-    //state to keep track of showing password 
-    const [showPassword, setShowPassword] = useState(false); 
-
     //sets field data of login form 
     const [loginData, setLoginData] = useState(initialState); 
 
-    //toggle state of password 
-    const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword); 
+    //error message 
+    const [errMsg, setErrMsg] = useState(null); 
 
     //used by each input 
     const handleChange = (e) => {
@@ -47,8 +62,48 @@ const Login = () => {
     }; 
 
     //handles button submission of login 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); 
+        console.log(loginData); 
+
+        const uid = loginData.uid; 
+        const password = loginData.password; 
+
+        try { //LOGIN_URL will attach itself to baseURL 
+            const response = await axios.post(LOGIN_URL, 
+                JSON.stringify({uid, password}),
+                {
+                    headers: { 'Content-Type': 'application/json'}, 
+                    //withCredentials: true
+                }
+            );
+            
+            const token = response.data.token; 
+
+            setAuth({ uid, password, token }); 
+            
+            console.log(JSON.stringify(response.data.token));
+            console.log(JSON.stringify(response));
+
+            navigate("/reservation", {replace : true}); 
+        } catch (err) {
+
+            if (!err.response) {
+                setErrMsg('No server response'); //if there is no response 
+            } else if (err.response.status === 400) 
+            {
+                setErrMsg('Invalid input fields'); 
+            } else if (err.response.status === 404)
+            {
+                setErrMsg('User not found'); 
+            } else if (err.response.status === 500)
+            {
+                setErrMsg('Server error'); 
+            } else {
+                setErrMsg('Login Failed'); 
+            }
+
+        }
     }
 
     return (
@@ -59,10 +114,12 @@ const Login = () => {
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
-                        <Input name="uid" label="UID" handleChange={handleChange} type="text" /> 
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                        <Input name="uid" label="UID" handleChange={handleChange} type="text" value={loginData.uid}/> 
+                        <Input name="password" label="Password" handleChange={handleChange} type={"password"} value={loginData.password}/>
                     </Grid>
-                    <SubmitButton type="submit" fullWidth variant="contained"> 
+                    <SubmitButton 
+                        type="submit" fullWidth variant="contained" 
+                    > 
                         Login 
                     </SubmitButton>
                     <Grid container justify="flex-end">
@@ -73,6 +130,10 @@ const Login = () => {
                         </Grid>
                     </Grid>
                 </form>
+                <Grid>
+                    {errMsg ? 
+                    <Alert severity='error'> {errMsg} </Alert> : null}
+                </Grid>
             </StyledPaper>
         </Container>
     )
