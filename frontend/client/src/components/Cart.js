@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function Cart({cartId, handleClick}){
+function Cart({cartId}){
     const [data, setData] = useState([]);
     const [hover, setHover] = useState(false);
 
@@ -9,6 +9,15 @@ function Cart({cartId, handleClick}){
         const { data } = await axios.get(`http://localhost:8800/api/cart/getCart/${cartId}`);
         setData(data);
     };
+
+    const handleClick = async () => {
+        await axios.put(`http://localhost:8800/api/cart/setDamage/${cartId}`);
+        let newData = {
+            cartId: data.cartId,
+            damaged: !data.damaged
+        }
+        setData(newData);
+    }
 
     useEffect(() => {
         getData();
@@ -48,7 +57,7 @@ const buttonHoverStyle = {
     color: "white"
 }
 const undamagedStyle = {
-    backgroundColor: "#E0FFFF"
+    backgroundColor: "#F0FFFF"
 }
 const damagedStyle = {
     backgroundColor: "#D3D3D3"

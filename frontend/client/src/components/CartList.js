@@ -1,23 +1,39 @@
 import axios from 'axios'
 import React from 'react'
 import Cart from './Cart'
+import Textbox from './Textbox'
 
 class ReservationList extends React.Component{
     state = {
         building: []
     }
-    handleClick(cartId){
-        axios.put(`http://localhost:8800/api/cart/setDamage/${cartId}`);
-        console.log("CLICK");
-    }
-
     componentDidMount(){
         axios.get("http://localhost:8800/api/building/getAll").then(res =>{
             const building = res.data;
             this.setState({ building })
         })
     }
-
+    handleClick = async (cartId, buildingName) => {
+        const newCart = {
+            cartId: cartId,
+            damaged: false
+        }
+        try {
+            await axios.post("http://localhost:8800/api/cart/addCart", newCart).then(res=>{
+            })
+            await axios.put(`http://localhost:8800/api/building/addCart/${buildingName}/${cartId}`).then(res=>{
+            })
+            let building = [...this.state.building]
+            for (let i = 0; i < this.state.building.length; i++){
+                if(this.state.building[i].name === buildingName){
+                    building[i].carts.push(cartId);
+                }
+            }
+            this.setState({ building })
+        } catch (err) {
+            alert("cartId exist")
+        }
+    }
     render(){
         return (
             <>
@@ -29,7 +45,7 @@ class ReservationList extends React.Component{
                 th {
                     font-family: "Calisto MT", serif;
                     height: 40px;
-                    font-size: 20px;
+                    font-size: 15px;
                 }
                 td {
                     text-align: center;
@@ -38,20 +54,17 @@ class ReservationList extends React.Component{
                     padding: 5px;
                     border-bottom: 1px solid #ddd;
                 }
-
-                thead {
-                    background: #E0FFFF;
-                }
             `}
             </style>
             <div style={wrapStyle}>
                 <table>
-                    <thead>
+                    <tr style={headStyle}>
                         {this.state.building.map(b => <th key={b._id}>{b.name}</th>)}
-                    </thead>
+                    </tr>
                     <tbody style={bodyStyle}>
                         {this.state.building.map(b => <th key={b._id}>
-                            {b.carts.map(cid => <tr  style={boxStyle} key={cid._id}><Cart cartId={cid} handleClick={this.handleClick} /></tr>)}
+                            {b.carts.map(cid => <div style={boxStyle} key={cid._id}><Cart cartId={cid} /></div>)}
+                            {<div style={boxStyle}><Textbox building={b.name} handleClick={this.handleClick.bind(this)}/></div>}
                         </th>)}
                     </tbody>
                 </table>
@@ -59,6 +72,9 @@ class ReservationList extends React.Component{
             </>
         )
     }
+}
+const headStyle = {
+    background: "#E0FFFF"
 }
 const boxStyle = {
     display: "flex",
