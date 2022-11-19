@@ -12,15 +12,19 @@ const {
     getAllReplies
 } = require('../controllers/messageController');
 
+const {
+    verifyToken,
+  } = require('../controllers/authController');
+
 const messageRouter = express.Router();
 
-messageRouter.post('/addMessage', addMessage);
+messageRouter.post('/addMessage', verifyToken, addMessage);
 messageRouter.get('/getAllMessages', getAllMessages);
 messageRouter.put('/editMessage/:_id', editMessage);
 messageRouter.delete('/deleteMessage/:_id', deleteMessage);
 messageRouter.get('/getCreatedTime/:_id', getCreatedTime);
 messageRouter.get('/getUpdatedTime/:_id', getUpdatedTime);
-// weird bug: if change ':_id' to ':msg_id', gives object cast error
+// weird bug: if change ':_id' to ':msg_imd', gives object cast error
 messageRouter.get('/getAllReplies/:_id', getAllReplies);
 
 // use with caution: the same reply should not occur in different messages
