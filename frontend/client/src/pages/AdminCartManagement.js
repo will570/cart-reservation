@@ -5,7 +5,7 @@ import Header from '../components/Header'
 function AdminCartManagement(){
     return (
         <>
-        <Header />
+        <Header reservationPage={false}/>
         <CartList />
         </>
     )

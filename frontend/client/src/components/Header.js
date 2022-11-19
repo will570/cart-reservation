@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = (props) => {
+const Header = ({ reservationPage }) => {
   const [reservationHover, setReservationHover] = useState(false);
   const [cartHover, setCartHover] = useState(false);
   return (
@@ -17,7 +17,7 @@ const Header = (props) => {
         }}
         style={{
             ...buttonStyle,
-            ...(reservationHover ? buttonHoverStyle : null)
+            ...(reservationHover || reservationPage ? buttonHoverStyle : null)
         }}>Reservation Table</button>
       </Link>
       <Link to="/admin/cartManagement">
@@ -30,7 +30,7 @@ const Header = (props) => {
         }}
         style={{
             ...buttonStyle,
-            ...(cartHover ? buttonHoverStyle : null)
+            ...(cartHover || !reservationPage ? buttonHoverStyle : null)
         }}>Cart Management</button>
       </Link>
       </div>
@@ -38,10 +38,10 @@ const Header = (props) => {
   )
 }
 const buttonStyle = {
-  fontSize: "30px",
+  fontSize: "20px",
   fontFamily: "Calisto MT, serif",
   textAlign: "center",
-  padding: "10px",
+  padding: "15px 20px",
   border: "1px solid black",
   borderRadius: "10px",
   backgroundColor: "white",
