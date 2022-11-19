@@ -1,126 +1,81 @@
-import axios from "axios";
-import { Form } from "react-bootstrap";
-import React, { Component } from 'react'
-import { useState } from 'react' 
+import React, {useState} from 'react'; 
+import {Paper, Grid, Typography, Container, Button} from '@material-ui/core'; 
+import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
-import Button from '@mui/material/Button';
+import Input from '../components/Authentication/Input'; 
 
-//import Cookies from "universal-cookie";
-//const cookies = new Cookies();
+const StyledPaper = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    color: theme.palette.light,
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(8)
+  }));
 
-// https://nathan-nodejs-mongodb-auth-app.herokuapp.com/login
+const SubmitButton = styled(Button) (({ theme }) => ({
+    margin: theme.spacing(3, 0, 2), 
+    color: theme.palette.text.primary
+})); 
 
-export default function Login() {
-    const [data, setData] = useState({
-       uid: "",
-       password: "" 
-    });
+const Login = () => {
 
+    const initialState = {
+        uid: '',
+        password: '' 
+    }; 
 
-    //const [myuid, setUid] = useState("");
-    //const [mypassword, setPassword] = useState("");
-    const [login, setLogin] = useState(false);
+    //state to keep track of showing password 
+    const [showPassword, setShowPassword] = useState(false); 
 
+    //sets field data of login form 
+    const [loginData, setLoginData] = useState(initialState); 
+
+    //toggle state of password 
+    const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword); 
+
+    //used by each input 
     const handleChange = (e) => {
         const value = e.target.value;
-        setData({
-            ...data,
-            [e.target.name]: value
-        });
-    }
+        setLoginData({ 
+            ...loginData, 
+            [e.target.name]: value 
+        });  //change the ones according to the input 
+    }; 
 
+    //handles button submission of login 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        const userData = {
-            uid: data.uid,
-            password: data.password
-        }
-        axios.post("localhost:8800/api/user/signIn", userData)
-        .then((result) => {
-            //setLogin(true);
-            console.log(result.response.data);
-            //cookies.set("TOKEN", result.data.token, {
-            //    path: "/",
-            //});
-
-            //window.location.href = "/About";
-        })
-        .catch((error) => {
-            console.log(error.response.data);
-        });
-
-        // set configurations
-        /*const configuration = {
-            method: "post",
-            //url: "https://nathan-nodejs-mongodb-auth-app.herokuapp.com/login",
-            url: "localhost:8800/api/user/signIn",
-            data: {
-                uid: uid,
-                password: password,
-            },
-        };
-
-        // make the API call
-        axios(configuration)
-            .then((result) => {
-                setLogin(true);
-                console.log(result);
-                //cookies.set("TOKEN", result.data.token, {
-                //    path: "/",
-                //});
-
-                window.location.href = "/About";
-            })
-            .catch((error) => {
-                //error = new Error();
-                console.log(error.response.data);
-            });*/
+        e.preventDefault(); 
     }
 
     return (
-        <>
-            <h2>Login</h2>
-        <Form onSubmit={(e)=>handleSubmit(e)}>
-            {/* uid */}
-            <Form.Group controlId="formBasicEmail">
-            <Form.Label>uid</Form.Label>
-                    <Form.Control
-                        type="uid"
-                        name="uid"
-                        value={data.uid}
-                        onChange={handleChange}
-                        placeholder="Enter uid" />
-            </Form.Group>
-
-            {/* password */}
-            <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        onChange={handleChange}
-                        placeholder="Password" />
-            </Form.Group>
-
-            {/* login button */}
-            <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={(e)=>handleSubmit(e)}
-                >
-            Login
-                </Button>
-
-                
-            {/* display success message */}
-                {login ? (
-                    <p className="text-success">You Are logged in Successfully</p>
-                ) : (
-                    <p className="text-danger">You Are Not logged in!</p>
-                )}
-        </Form>
-        </>
+        <Container maxWidth="xs">
+            <StyledPaper>
+                <Typography variant="h5"> 
+                    Login
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Input name="uid" label="UID" handleChange={handleChange} type="text" /> 
+                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                    </Grid>
+                    <SubmitButton type="submit" fullWidth variant="contained"> 
+                        Login 
+                    </SubmitButton>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Button component={Link} to="/register"> 
+                                Don't have an account? Sign Up 
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </StyledPaper>
+        </Container>
     )
 }
 
+export default Login; 

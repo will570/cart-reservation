@@ -12,6 +12,8 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
 function Sidebar() {
 
+    const user = null; 
+
     return (
         <Box
         sx={{
@@ -19,53 +21,47 @@ function Sidebar() {
             p:2
         }}
         >
-            {/* <Paper
-                sx={{
-                p: 2, 
-                width: '12%', 
-                height: '100%', 
-                minHeight: '100vh', 
-                backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                }}
-            > */}
-                <Grid 
-                sx={{
-                    minHeight: '100vh',
-                    width: '10%',
-                }}
-                container
-                
-                spacing={10}
-                direction="column"
-                alignItems="center"
-                wrap="nowrap"
-                zeroMinWidth
-                >
-                    <Grid item xs>
-                        <Typography variant="h5" gutterBottom>
-                            Welcome 
-                        </Typography>
+            <Grid 
+            sx={{
+                minHeight: '100vh',
+                width: '10%',
+            }}
+            container
+             
+            spacing={10}
+            direction="column"
+            alignItems="center"
+            wrap="nowrap"
+            zeroMinWidth
+            >
+                <Grid item xs>
+                    <Typography variant="h5" gutterBottom>
+                        Welcome 
+                    </Typography>
+                </Grid>
+
+                <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
+
+                    <Grid item>
+                        <SidebarLink text = "Reserve"  Icon={HomeIcon} route="/reservation"/> 
                     </Grid>
 
-                    <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
+                    <Grid item>
+                        <SidebarLink text = "Message" Icon={MailOutlineIcon} route="/message"/>   
+                    </Grid>
 
-                        <Grid item>
-                            <SidebarLink text = "Reserve"  Icon={HomeIcon} route="/reservation"/> 
-                        </Grid>
-
-                        <Grid item>
-                            <SidebarLink text = "Message" Icon={MailOutlineIcon} route="/message"/>   
-                        </Grid>
-
+                    {user ? ( //if user exists, show logout button, else show login, both takes user to /login page
                         <Grid item>
                             <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
                         </Grid>
-
-                    </Grid>
-                  
+                    ) : (
+                        <Grid item>
+                            <SidebarLink text = "Login" Icon={PermIdentityIcon} route="/login"/> 
+                        </Grid>
+                    )}
                 </Grid>
-            {/* </Paper> */}
+              
+            </Grid>
         </Box>
     ); 
 }
