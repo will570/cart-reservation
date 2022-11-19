@@ -1,126 +1,142 @@
-import axios from "axios";
-import { Form } from "react-bootstrap";
-import React, { Component } from 'react'
-import { useState } from 'react' 
+import React, {useState, useEffect} from 'react'; 
+import {Paper, Grid, Typography, Container, Button} from '@material-ui/core'; 
+import Alert from '@mui/material/Alert';
+import { styled } from '@mui/material/styles';
 
-import Button from '@mui/material/Button';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from '../api/axios';
 
-//import Cookies from "universal-cookie";
-//const cookies = new Cookies();
+import Input from '../components/Authentication/Input'; 
+import useAuth from '../hooks/useAuth';
 
-// https://nathan-nodejs-mongodb-auth-app.herokuapp.com/login
+const LOGIN_URL = '/user/signIn';
 
-export default function Login() {
-    const [data, setData] = useState({
-       uid: "",
-       password: "" 
-    });
+//Styling 
+const StyledPaper = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    color: theme.palette.light,
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(8)
+  }));
 
+const SubmitButton = styled(Button) (({ theme }) => ({
+    margin: theme.spacing(3, 0, 2), 
+    color: theme.palette.text.primary
+})); 
 
-    //const [myuid, setUid] = useState("");
-    //const [mypassword, setPassword] = useState("");
-    const [login, setLogin] = useState(false);
+//Login function 
+const Login = () => {
 
+    //set auth, auth data needed for login component 
+    //if successfully authenticated when login, set new auth state and store in context
+    const { setAuth } = useAuth();  
+
+    //navigation 
+    const navigate = useNavigate(); 
+    const location = useLocation(); 
+    
+
+    //set initial field data of login form 
+    const initialState = {
+        uid: '',
+        password: '' 
+    }; 
+
+    //sets field data of login form 
+    const [loginData, setLoginData] = useState(initialState); 
+
+    //error message 
+    const [errMsg, setErrMsg] = useState(null); 
+
+    //used by each input 
     const handleChange = (e) => {
         const value = e.target.value;
-        setData({
-            ...data,
-            [e.target.name]: value
-        });
-    }
+        setLoginData({ 
+            ...loginData, 
+            [e.target.name]: value 
+        });  //change the ones according to the input 
+    }; 
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const userData = {
-            uid: data.uid,
-            password: data.password
+    //handles button submission of login 
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
+        console.log(loginData); 
+
+        const uid = loginData.uid; 
+        const password = loginData.password; 
+
+        try { //LOGIN_URL will attach itself to baseURL 
+            const response = await axios.post(LOGIN_URL, 
+                JSON.stringify({uid, password}),
+                {
+                    headers: { 'Content-Type': 'application/json'}, 
+                    //withCredentials: true
+                }
+            );
+            
+            const token = response.data.token; 
+
+            setAuth({ uid, password, token }); 
+            
+            console.log(JSON.stringify(response.data.token));
+            console.log(JSON.stringify(response));
+
+            navigate("/reservation", {replace : true}); 
+        } catch (err) {
+
+            if (!err.response) {
+                setErrMsg('No server response'); //if there is no response 
+            } else if (err.response.status === 400) 
+            {
+                setErrMsg('Invalid input fields'); 
+            } else if (err.response.status === 404)
+            {
+                setErrMsg('User not found'); 
+            } else if (err.response.status === 500)
+            {
+                setErrMsg('Server error'); 
+            } else {
+                setErrMsg('Login Failed'); 
+            }
+
         }
-        axios.post("localhost:8800/api/user/signIn", userData)
-        .then((result) => {
-            //setLogin(true);
-            console.log(result.response.data);
-            //cookies.set("TOKEN", result.data.token, {
-            //    path: "/",
-            //});
-
-            //window.location.href = "/About";
-        })
-        .catch((error) => {
-            console.log(error.response.data);
-        });
-
-        // set configurations
-        /*const configuration = {
-            method: "post",
-            //url: "https://nathan-nodejs-mongodb-auth-app.herokuapp.com/login",
-            url: "localhost:8800/api/user/signIn",
-            data: {
-                uid: uid,
-                password: password,
-            },
-        };
-
-        // make the API call
-        axios(configuration)
-            .then((result) => {
-                setLogin(true);
-                console.log(result);
-                //cookies.set("TOKEN", result.data.token, {
-                //    path: "/",
-                //});
-
-                window.location.href = "/About";
-            })
-            .catch((error) => {
-                //error = new Error();
-                console.log(error.response.data);
-            });*/
     }
 
     return (
-        <>
-            <h2>Login</h2>
-        <Form onSubmit={(e)=>handleSubmit(e)}>
-            {/* uid */}
-            <Form.Group controlId="formBasicEmail">
-            <Form.Label>uid</Form.Label>
-                    <Form.Control
-                        type="uid"
-                        name="uid"
-                        value={data.uid}
-                        onChange={handleChange}
-                        placeholder="Enter uid" />
-            </Form.Group>
-
-            {/* password */}
-            <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        onChange={handleChange}
-                        placeholder="Password" />
-            </Form.Group>
-
-            {/* login button */}
-            <Button
-                    variant="primary"
-                    type="submit"
-                    onClick={(e)=>handleSubmit(e)}
-                >
-            Login
-                </Button>
-
-                
-            {/* display success message */}
-                {login ? (
-                    <p className="text-success">You Are logged in Successfully</p>
-                ) : (
-                    <p className="text-danger">You Are Not logged in!</p>
-                )}
-        </Form>
-        </>
+        <Container maxWidth="xs">
+            <StyledPaper>
+                <Typography variant="h5"> 
+                    Login
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Input name="uid" label="UID" handleChange={handleChange} type="text" value={loginData.uid}/> 
+                        <Input name="password" label="Password" handleChange={handleChange} type={"password"} value={loginData.password}/>
+                    </Grid>
+                    <SubmitButton 
+                        type="submit" fullWidth variant="contained" 
+                    > 
+                        Login 
+                    </SubmitButton>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Button component={Link} to="/register"> 
+                                Don't have an account? Sign Up 
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+                <Grid>
+                    {errMsg ? 
+                    <Alert severity='error'> {errMsg} </Alert> : null}
+                </Grid>
+            </StyledPaper>
+        </Container>
     )
 }
 
+export default Login; 
