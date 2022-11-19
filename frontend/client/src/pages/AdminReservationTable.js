@@ -5,7 +5,7 @@ import Header from '../components/Header'
 function AdminReservationTable(){
     return (
         <>
-        <Header />
+        <Header reservationPage={true} />
         <ReservationList />
         </>
     )
