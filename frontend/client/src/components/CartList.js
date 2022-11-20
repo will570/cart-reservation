@@ -5,9 +5,9 @@ import Textbox from './Textbox'
 
 class ReservationList extends React.Component{
     state = {
-        building: []
+        building: [],
     }
-    componentDidMount(){
+    componentDidMount = async() =>{
         axios.get("http://localhost:8800/api/building/getAll").then(res =>{
             const building = res.data;
             this.setState({ building })
@@ -40,14 +40,28 @@ class ReservationList extends React.Component{
         for (let i = 0; i < building.length; i++){
             for (let j = 0; j < building[i].carts.length; j++){
                 if (building[i].carts[j] === cartId){
-                    building[i].carts.splice(j, 1);
                     buildingName = building[i].name;
                 }
             }
         }
-        this.setState({ building })
         await axios.put(`http://localhost:8800/api/building/removeCart/${buildingName}/${cartId}`);
         await axios.delete(`http://localhost:8800/api/cart/removeCart/${cartId}`);
+        window.location.reload(false);
+    }
+    prioritizeCart = async (cartId) => {
+        let building = [...this.state.building]
+        let buildingName;
+        for (let i = 0; i < building.length; i++){
+            for (let j = 0; j < building[i].carts.length; j++){
+                if (building[i].carts[j] === cartId){
+                    buildingName = building[i].name;
+                    break;
+                }
+            }
+        }
+        //this.setState({ building })
+        await axios.put(`http://localhost:8800/api/building/prioritizeCart/${buildingName}/${cartId}`);
+        window.location.reload(false);
     }
     render(){
         return (
@@ -78,7 +92,7 @@ class ReservationList extends React.Component{
                     </tr>
                     <tbody style={bodyStyle}>
                         {this.state.building.map(b => <th key={b._id}>
-                            {b.carts.map(cid => <div style={boxStyle} key={cid._id}><Cart cartId={cid} removeCart={this.removeCart.bind(this)}/></div>)}
+                            {b.carts.map(cid => <div style={boxStyle} key={cid._id}><Cart cartId={cid} removeCart={this.removeCart.bind(this)} prioritizeCart={this.prioritizeCart.bind(this)}/></div>)}
                             {<div style={boxStyle}><Textbox building={b.name} handleClick={this.handleClick.bind(this)}/></div>}
                         </th>)}
                     </tbody>

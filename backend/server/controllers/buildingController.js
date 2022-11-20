@@ -155,8 +155,26 @@ const getAll = async (req, res) => {
 
 const prioritizeCart = async (req, res) => {
     try{
-        const {building, cartId} = req.params;
-        
+        const {name, cartId} = req.params;
+        const b = await buildingModel.findOneAndUpdate(
+            {"name": name},
+            {$pull: {"carts": cartId}},
+            {new: true}
+        )
+        const newBuilding = await buildingModel.findOneAndUpdate(
+            {"name": name},
+            {
+                $push: {
+                    "carts": {
+                        $each: [cartId],
+                        $position: 0
+                    }
+                }
+
+            },
+            {new: true}
+        )
+        return res.status(200).json(newBuilding);
     } catch (err) {
         return res.status(401).json(err)
     }
