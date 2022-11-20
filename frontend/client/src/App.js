@@ -28,10 +28,11 @@ function App() {
                     <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
                     <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
                     <Route path="/message" element={<MessagePage />} />
+                    <Route path="/reservation" element={<ReservationPage />} />
 
                     <Route element={<RequireAuth />}>
                         {/* User Routes  */}
-                        <Route path="/reservation" element={<ReservationPage />} />
+                        
 
                         {/* Admin Routes  */}
                     </Route>
