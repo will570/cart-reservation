@@ -5,6 +5,7 @@ import RequireAuth from './components/Authentication/RequireAuth';
 import RequireAdmin from './components/Authentication/RequireAdmin';
 
 import ReservationPage from './pages/ReservationPage';
+import MessagePage from './pages/MessagePage';
 import AdminReservationTable from './pages/AdminReservationTable';
 import AdminCartManagement from './pages/AdminCartManagement';
 import Login from './pages/Login';
@@ -30,7 +31,7 @@ function App() {
                     <Route element={<RequireAuth />}>
                         {/* User Routes  */}
                         <Route path="/reservation" element={<ReservationPage />} />
-
+                        <Route path="/message" element={<MessagePage />} />
                         {/* Admin Routes  */}
                         <Route element={<RequireAdmin />}>
                             <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
@@ -43,7 +44,6 @@ function App() {
                     <Route path="/sidebar" element={<Sidebar />} />
                     <Route path="/dropdown" element={<Dropdown />} /> 
                     <Route path="/input" element={<Input />} /> 
-
                 </Routes>
             </Router>
         </div>

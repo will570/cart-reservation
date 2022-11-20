@@ -31,7 +31,6 @@ function Sidebar() {
             direction="column"
             alignItems="center"
             wrap="nowrap"
-            zeroMinWidth
             >
                 <Grid item xs>
                     <Typography variant="h5" gutterBottom>
