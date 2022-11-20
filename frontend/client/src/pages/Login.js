@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'; 
+import React, {useState} from 'react'; 
 import {Paper, Grid, Typography, Container, Button} from '@material-ui/core'; 
 import Alert from '@mui/material/Alert';
 import { styled } from '@mui/material/styles';
 
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
 import Input from '../components/Authentication/Input'; 
@@ -37,13 +37,12 @@ const Login = () => {
 
     //navigation 
     const navigate = useNavigate(); 
-    const location = useLocation(); 
     
-
     //set initial field data of login form 
     const initialState = {
         uid: '',
-        password: '' 
+        password: '', 
+        isAdmin: false 
     }; 
 
     //sets field data of login form 
@@ -69,8 +68,16 @@ const Login = () => {
         const uid = loginData.uid; 
         const password = loginData.password; 
 
+        if (uid === "000000000")
+        {
+            loginData.isAdmin = true; 
+        }
+
+        const isAdmin = loginData.isAdmin; 
+
         try { //LOGIN_URL will attach itself to baseURL 
             const response = await axios.post(LOGIN_URL, 
+                // payload, 
                 JSON.stringify({uid, password}),
                 {
                     headers: { 'Content-Type': 'application/json'}, 
@@ -80,7 +87,7 @@ const Login = () => {
             
             const token = response.data.token; 
 
-            setAuth({ uid, password, token }); 
+            setAuth({ uid, password, token, isAdmin }); 
             
             console.log(JSON.stringify(response.data.token));
             console.log(JSON.stringify(response));
