@@ -156,7 +156,7 @@ const getAll = async (req, res) => {
 const prioritizeCart = async (req, res) => {
     try{
         const {building, cartId} = req.params;
-
+        
     } catch (err) {
         return res.status(401).json(err)
     }
