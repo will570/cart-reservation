@@ -6,6 +6,10 @@ function Building(props) {
     /* 
     * This is the building component. 
     */
+    function handleClick(){
+        alert("Reserved!");
+    };
+
     return (
         <Box width={0.9}>
             <Box 
@@ -37,7 +41,7 @@ function Building(props) {
                     <Button variant="contained"
                         p={2}
                         onClick={() => {
-                            alert('Reserved!');
+                            handleClick();
                         }} 
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                     >

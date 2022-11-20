@@ -1,7 +1,6 @@
 import React from 'react';
-import {Grid, Box} from '@material-ui/core';
-import Typography from '@mui/material/Typography';
-
+import {Grid} from '@material-ui/core';
+import {Typography, Box} from '@mui/material';
 import Dropdown from '../components/dropdown';
 import Sidebar from '../components/Navigation/Sidebar'; 
 

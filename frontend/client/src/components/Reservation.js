@@ -20,8 +20,6 @@ function Reservation({uid, cartId, handleClick}){
             <option style={optionStyle} value="Sproul Plaza">Sproul Plaza</option>
             <option style={optionStyle} value="Hedrick Court">Hedrick Court</option>
             <option style={optionStyle} value="Reiber Court">Reiber Court</option>
-            <option style={optionStyle} value="Sunset Village">Sunset Village</option>
-            <option style={optionStyle} value="Dykstra Hall">Dykstra Hall</option>
         </select></th>
         <th>
         <button 

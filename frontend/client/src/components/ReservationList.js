@@ -62,8 +62,8 @@ class ReservationList extends React.Component{
                 <div style={wrapStyle}>
                     <table>
                         <tr style={headStyle}>                 
-                            <th>Cart Id</th>
                             <th>Student UID</th>
+                            <th>Cart ID</th>
                             <th>Building</th>
                             <th>Return</th>
                         </tr>

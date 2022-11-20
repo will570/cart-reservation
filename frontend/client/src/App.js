@@ -25,6 +25,8 @@ function App() {
                     {/* Public Routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
+                    <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
                     <Route path="/message" element={<MessagePage />} />
 
                     <Route element={<RequireAuth />}>
@@ -32,8 +34,6 @@ function App() {
                         <Route path="/reservation" element={<ReservationPage />} />
 
                         {/* Admin Routes  */}
-                        <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
-                        <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
                     </Route>
 
 
