@@ -29,13 +29,13 @@ function MessageCreator() {
     });
 
     const handleSubmit = () => {
-
+      
     }
 
     return (
         <Paper className={style.paper}>
             <form className={`${style.root} ${style.form}`} autoComplete="off" noValidate onSubmit={handleSubmit}>
-                <Typography variant="h6">Construct a Message</Typography>
+                <Typography variant="h6">Construct a New Message</Typography>
                 <TextField name="title" variant="outlined" label="Title" multiline fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
                 <TextField name="message" variant="outlined" label="Message" multiline fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
                 <Button className={style.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>submit</Button>

@@ -30,9 +30,8 @@ function App() {
                     {/* Protected Routes */}
                     <Route element={<RequireAuth />}>
                         {/* User Routes  */}
-                        
-
-
+                        <Route path="/reservation" element={<ReservationPage />} />
+                        <Route path="/message" element={<MessagePage />} />
                         {/* Admin Routes  */}
                         <Route element={<RequireAdmin />}>
                             <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
