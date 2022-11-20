@@ -82,10 +82,27 @@ const getAll = async (req, res) => {
         return res.status(401).json(err);
     }
 }
+
+const removeCart = async (req, res) => {
+    try{
+        const {cartId} = req.params;
+        const cart = await cartModel.findOne({"cartId": cartId});
+        if(cart){
+            const deleteCart = await cartModel.deleteOne({"cartId": cartId});
+            return res.status(200).json("cart deleted");
+        }
+        else{
+            return res.status(401).json("cart does not exist");
+        }
+    } catch (err){
+        return res.status(401).json(err);
+    }
+}
 module.exports = {
     addCart,
     getCart,
     setCart,
     setDamage,
-    getAll
+    getAll,
+    removeCart
 }

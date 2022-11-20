@@ -152,11 +152,21 @@ const getAll = async (req, res) => {
         return res.status(401).json(err);
     }
 }
+
+const prioritizeCart = async (req, res) => {
+    try{
+        const {building, cartId} = req.params;
+
+    } catch (err) {
+        return res.status(401).json(err)
+    }
+}
 module.exports = {
     addBuilding,
     addCart,
     removeCart,
     getCart,
     getNum,
-    getAll
+    getAll,
+    prioritizeCart
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function Cart({cartId}){
+function Cart({cartId, removeCart}){
     const [data, setData] = useState([]);
     const [hover, setHover] = useState(false);
+    const [removeHover, setRemoveHover] = useState(false);
+    const [priorityHover, setPriorityHover] = useState(false);
 
     const getData = async () => {
         const { data } = await axios.get(`http://localhost:8800/api/cart/getCart/${cartId}`);
@@ -37,9 +39,46 @@ function Cart({cartId}){
                 ...(hover ? buttonHoverStyle : null)
             }}
             onClick={() => handleClick(cartId)}>
-                {cartId}{data.damaged ? " \u2717" : " \u2713"}
+                <div onClick={(event) => event.stopPropagation()}>
+                    {cartId}{data.damaged ? <button 
+                    onClick={() => removeCart(cartId)}
+                    onMouseEnter={()=>{
+                        setRemoveHover(true);
+                    }} 
+                    onMouseLeave={()=>{
+                        setRemoveHover(false);
+                    }} 
+                    style={{
+                        ...removeButtonStyle,
+                        ...(removeHover ? removeButtonHoverStyle : null)}}>{`\u2717`}</button> : <button 
+                    onMouseEnter={()=>{
+                        setPriorityHover(true);
+                    }} 
+                    onMouseLeave={()=>{
+                        setPriorityHover(false);
+                    }} 
+                    style={{
+                        ...priorityButtonStyle,
+                        ...(priorityHover ? priorityButtonHoverStyle : null)}}>{`\u2713`}</button>}
+                </div>
             </button>
     )
+}
+const removeButtonStyle = {
+    cursor: "pointer",
+    backgroundColor: "rgba(0,0,0,0)",
+    border: "none"
+}
+const removeButtonHoverStyle = {
+    fontWeight: "bold"
+}
+const priorityButtonStyle = {
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "rgba(0,0,0,0)"
+}
+const priorityButtonHoverStyle = {
+    fontWeight: "bold"
 }
 const buttonStyle = {
     fontSize: "20px",
@@ -57,7 +96,8 @@ const buttonHoverStyle = {
     color: "white"
 }
 const undamagedStyle = {
-    backgroundColor: "#F0FFFF"
+    //backgroundColor: "#F0FFFF"
+    backgroundColor: "#98FB98"
 }
 const damagedStyle = {
     backgroundColor: "#D3D3D3"
