@@ -1,18 +1,19 @@
-//this is used to route users who are not authenticated back to the login page 
+//this is used to protect admin routes 
 
 import React from 'react'; 
 import { useLocation, Navigate, Outlet } from 'react-router-dom'; 
 
 import useAuth from '../../hooks/useAuth';
 
-const RequireAuth = () => {
+const RequireAdmin = () => {
     const { auth } = useAuth(); 
     const location = useLocation(); 
 
     return (
-        auth.uid ? <Outlet /> : <Navigate to="/login" state={{ from : location }} replace />
+        auth.isAdmin === true 
+            ? <Outlet /> 
+            : <Navigate to="/login" state={{ from : location }} replace />
     ); 
 }
 
-export default RequireAuth; 
-
+export default RequireAdmin; 

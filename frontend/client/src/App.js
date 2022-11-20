@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import RequireAuth from './components/Authentication/RequireAuth';
+import RequireAdmin from './components/Authentication/RequireAdmin';
 
 import ReservationPage from './pages/ReservationPage';
 import AdminReservationTable from './pages/AdminReservationTable';
@@ -24,13 +25,17 @@ function App() {
                     {/* Public Routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
-                    <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
-
+                    
+                    {/* Protected Routes */}
                     <Route element={<RequireAuth />}>
                         {/* User Routes  */}
                         <Route path="/reservation" element={<ReservationPage />} />
+
                         {/* Admin Routes  */}
+                        <Route element={<RequireAdmin />}>
+                            <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
+                            <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
+                        </Route>
                     </Route>
 
 
