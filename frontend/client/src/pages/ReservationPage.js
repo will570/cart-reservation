@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from '@material-ui/core';
 import {Typography, Box} from '@mui/material';
 import Dropdown from '../components/dropdown';
-import Sidebar from '../components/Sidebar'; 
+import Sidebar from '../components/Navigation/Sidebar'; 
 
 function ReservationPage() {
 

@@ -7,8 +7,19 @@ class ReservationList extends React.Component{
         reservation: []
     }
     handleClick(cartId, building){
-        axios.put(`http://localhost:8800/api/reservation/returnCart/${building}/${cartId}`)
-        console.log(`${cartId} returned to ${building}`)
+        if (building !== "None"){
+            axios.put(`http://localhost:8800/api/reservation/returnCart/${building}/${cartId}`);
+            let reservation = [];
+            for(let i = 0; i < this.state.reservation.length; i++){
+                if (cartId !== this.state.reservation[i].cartId){
+                    reservation.push(this.state.reservation[i])
+                }
+            }
+            this.setState({reservation})
+        }
+        else{
+            alert("Must choose a building")
+        }
     }
     componentDidMount(){
         axios.get("http://localhost:8800/api/reservation/getAll").then(res =>{
@@ -46,27 +57,26 @@ class ReservationList extends React.Component{
                 }
                 tr:nth-child(even) {background-color: #f2f2f2;}
                 tr:hover {background-color: #ddd;}
-
-                thead {
-                    background: #E0FFFF;
-                }
             `}
             </style>
                 <div style={wrapStyle}>
                     <table>
-                        <thead>                 
-                            <th>Cart Id</th>
+                        <tr style={headStyle}>                 
                             <th>Student UID</th>
+                            <th>Cart ID</th>
                             <th>Building</th>
                             <th>Return</th>
-                        </thead>
+                        </tr>
                         <tbody>
-                            {this.state.reservation.map(rsv => <tr key={rsv.cartId}><Reservation uid={rsv.uid} cartId={rsv.cartId} handleClick={this.handleClick}/></tr>)}
+                            {this.state.reservation.map(rsv => <tr key={rsv.cartId}><Reservation uid={rsv.uid} cartId={rsv.cartId} handleClick={this.handleClick.bind(this)}/></tr>)}
                         </tbody>
                     </table>
                 </div>
             </>
         )
     }
+}
+const headStyle = {
+    background: "#E0FFFF"
 }
 export default ReservationList

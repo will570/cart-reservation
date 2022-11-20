@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 //verify token method used as middleware each time user acts (reserve, post message, etc.)
 //e.g. messageRouter.post('/addMessage', verifyToken, addMessage);
 verifyToken = async(req, res, next) => { 
-    const token = req.body.token || req.query.token || req.headers["x-access-token"]; 
+    const token = req.body.token || req.query.token || req.headers.authentication; 
 
     if(!token){
         res.status(403).json({ message: "Token required for authentication" }); 
@@ -15,7 +15,7 @@ verifyToken = async(req, res, next) => {
         const decoded = jwt.verify(token, process.env.TOKEN_KEY); 
         req.user = decoded; 
     } catch(error) {
-        res.status(401).json({ message: "Authentication failed" });
+        res.status(401).json({ token });
         return; 
     }
 

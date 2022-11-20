@@ -16,11 +16,10 @@ function Reservation({uid, cartId, handleClick}){
         value={building} 
         onChange={handleChange}>
             <option style={optionStyle} value="None">Choose a building</option>
-            <option style={optionStyle} value="De neve">De neve</option>
-            <option style={optionStyle} value="Sproul">Sproul</option>
-            <option style={optionStyle} value="Rieber">Rieber</option>
-            <option style={optionStyle} value="Olympic">Olympic</option>
-            <option style={optionStyle} value="Courtside">Courtside</option>
+            <option style={optionStyle} value="De Neve Plaza">De Neve Plaza</option>
+            <option style={optionStyle} value="Sproul Plaza">Sproul Plaza</option>
+            <option style={optionStyle} value="Hedrick Court">Hedrick Court</option>
+            <option style={optionStyle} value="Reiber Court">Reiber Court</option>
         </select></th>
         <th>
         <button 
