@@ -59,7 +59,6 @@ class ReservationList extends React.Component{
                 }
             }
         }
-        //this.setState({ building })
         await axios.put(`http://localhost:8800/api/building/prioritizeCart/${buildingName}/${cartId}`);
         window.location.reload(false);
     }
