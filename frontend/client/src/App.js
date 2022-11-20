@@ -24,13 +24,14 @@ function App() {
                     {/* Public Routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    {/* User Routes  */}
+                    <Route path="/reservation" element={<ReservationPage />} />
+                    {/* Admin Routes  */}
+                    <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
+                    <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
 
                     <Route element={<RequireAuth />}>
-                        {/* User Routes  */}
-                        <Route path="/reservation" element={<ReservationPage />} />
-                        {/* Admin Routes  */}
-                        <Route path="/admin/reservationTable" element={<AdminReservationTable />} />
-                        <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
+
                     </Route>
 
 
