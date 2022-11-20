@@ -11,6 +11,7 @@ function Building(props) {
     const handleClick = async (buildingName, uid) => {
         const { cartID } = await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
         alert("Successfully reserved the cart at " + buildingName);
+        
     };
     
     return (
