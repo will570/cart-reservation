@@ -6,7 +6,8 @@ const {
     getCart,
     setCart,
     setDamage,
-    getAll
+    getAll,
+    removeCart
 } = require('../controllers/cartController');
 
 const cartRouter = express.Router(); 
@@ -19,5 +20,6 @@ cartRouter.put('/setCart/:cartId', setCart);    // Set a cart with given cartId 
 // More efficient method
 cartRouter.put('/setDamage/:cartId', setDamage);// Set a cart's damaged attribute to the opposite with given cartId
 cartRouter.get('/getAll', getAll);              // Get all carts' information
+cartRouter.delete('/removeCart/:cartId', removeCart);
 
 module.exports = cartRouter;
