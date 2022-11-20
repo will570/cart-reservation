@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const messageModel = new mongoose.Schema({
+    title:{
+        type: String,
+        default: null
+    },
     content:{
         type: String,
         default: null
