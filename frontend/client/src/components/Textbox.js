@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function Textbox({building, handleClick}){
-    const [cartId, setCartId] = useState(null)
+    const [cartId, setCartId] = useState(null);
+    const [hover, setHover] = useState(false);
     return (
         <div style={boxStyle}>
-            <input style={inputStyle} type={Number} maxLength={3} onChange={(event) => setCartId(event.target.value)}></input>
-            <button 
-            onClick={() => handleClick(cartId, building)} 
-            style={{
-                ...buttonStyle,
-                ...(cartId === null || cartId.toString().length === 0 ? hideButton : null)}}>{`\u2713`}</button>
+                <input style={inputStyle} type={Number} maxLength={3} onChange={(event) => setCartId(event.target.value)}></input>
+                    <button 
+                    onMouseEnter={()=>{
+                        setHover(true);
+                    }} 
+                    onMouseLeave={()=>{
+                        setHover(false);
+                    }}
+                    onClick={() => handleClick(cartId, building)} 
+                    style={{
+                        ...buttonStyle,
+                        ...(cartId === null || cartId.toString().length === 0 ? hideButton : null),
+                        ...(hover ? buttonHoverStyle : null)}}>{`\u2713`}</button>
         </div>
     )
 }
@@ -28,13 +36,22 @@ const inputStyle = {
     border: "none",
     cursor: "pointer",
     fontFamily: "Calisto MT, serif",
-    marginRight: "5px",
+    marginRight: "2px",
+    marginTop: "5px"
 }
 const buttonStyle = {
     fontSize: "20px",
-    border: "1px solid #008CBA",
+    backgroundColor: "white",
+    border: "1px solid white",
     borderRadius: "10px",
-    marginLeft: "5px",
+    marginLeft: "2px",
+    marginTop: "5px",
+    cursor: "pointer",
+    transitionDuration: "0.4s"
+}
+const buttonHoverStyle = {
+    fontWeight: "bold",
+    border: "1px solid black"
 }
 const hideButton = {
     visibility: "hidden"
