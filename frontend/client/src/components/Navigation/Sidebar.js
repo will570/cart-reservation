@@ -1,18 +1,18 @@
-import React from 'react'; 
+import React, {useState} from 'react'; 
 import SidebarLink from './SidebarLink.js'; 
 import {Box} from '@material-ui/core';
 import {Grid} from '@material-ui/core';
 import Typography from '@mui/material/Typography';
-// import Paper from '@mui/material/Paper';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import HomeIcon from "@material-ui/icons/Home";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
+import useAuth from '../../hooks/useAuth.js';
+
 function Sidebar() {
 
-    const user = null; 
+    const { auth } = useAuth(); 
+    const [user, setUser] = useState(null); 
 
     return (
         <Box
