@@ -11,8 +11,11 @@ function Dropdown() {
       setExpanded(isExpanded ? panel : false);
     };
     
-    const [dataRieber, setDataRieber] = useState([]);
+    
+    const [dataDeNeve, setDataDeNeve] = useState([]);
     const [dataSproul, setDataSproul] = useState([]);
+    const [dataRieber, setDataRieber] = useState([]);
+    const [dataHedrick, setDataHedrick] = useState([]);
     //console.log('start')
     const getNumCarts = async (setHallData, name) => {
       console.log(name);
@@ -21,8 +24,10 @@ function Dropdown() {
         //console.log(data);
     };
     useEffect(() => {
-      getNumCarts(setDataRieber, 'Rieber');
-      getNumCarts(setDataSproul, 'Sproul');
+      getNumCarts(setDataDeNeve, 'De Neve Plaza');
+      getNumCarts(setDataSproul, 'Sproul Plaza');
+      getNumCarts(setDataRieber, 'Rieber Court');
+      getNumCarts(setDataHedrick, 'Hedrick Court');
       //getNumCarts(setDataHedrick);
   }, []);
 
@@ -38,16 +43,16 @@ function Dropdown() {
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <Typography component="h2">
-                    De Neve
+                    De Neve Plaza
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> 20</Typography>
+                  <Typography component="h2"> {dataDeNeve}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="De Neve" n_carts={20}/>
+              <Building name="De Neve Plaza" n_carts={dataDeNeve}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -59,7 +64,7 @@ function Dropdown() {
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <Typography component="h2">
-                    Sproul
+                    Sproul Plaza
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
@@ -68,7 +73,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Sproul" n_carts={dataSproul}/>
+              <Building name="Sproul Plaza" n_carts={dataSproul}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -80,7 +85,7 @@ function Dropdown() {
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <Typography component="h2">
-                    Rieber
+                    Rieber Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
@@ -89,7 +94,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Rieber" n_carts={dataRieber}/>
+              <Building name="Rieber Court" n_carts={dataRieber}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -105,12 +110,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {20}</Typography>
+                  <Typography component="h2"> {dataHedrick}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Hedrick" n_carts={20}/>
+              <Building name="Hedrick Court" n_carts={dataHedrick}/>
             </AccordionDetails>
           </Accordion>
         </Grid>
