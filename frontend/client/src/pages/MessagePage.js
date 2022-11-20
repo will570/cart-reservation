@@ -1,61 +1,20 @@
-import { Box, Button, CssBaseline, Grid, TextField, Typography } from "@mui/material";
+import { Container, Grid } from "@material-ui/core";
 import React from "react";
+import MessageCreator from "../components/Messages/CreateMessage";
+import MessageDisplay from "../components/Messages/DisplayMessage";
 
 function MessagePage() {
     return (
-        <div className="message">
-            <CssBaseline />
-            <Grid 
-                container 
-                spacing={2}
-                direction='column'
-                justifyContent='flex-start'
-                sx={{ border: 1, borderRight: 1, width: 1/2}}
-            >
-               <Grid item>
-                    <Typography variant='h4'>
-                        supposedly the message title
-                    </Typography>
-                </Grid> 
-                <Grid item>
-                    <Typography variant='body1'>
-                        supposedly the message content
-                    </Typography>
-                </Grid> 
-                <Grid item>
-                    <Typography variant='body2'>
-                        supposedly the list of message replies
-                    </Typography>
-                </Grid> 
-            </Grid>
-
-            <Grid 
-                container 
-                spacing={2}
-                justifyContent='flex-end'
-                alignItems='right'
-                border={1}
-            >
-                <Grid item xs={4}>
-                    <Typography variant="h4">
-                        Construct a new message
-                    </Typography>
-                    <TextField 
-                        multiline
-                        helperText="Enter message title"
-                        sx={{ m: 1, p: 1 }}    
-                    />
-                    <TextField 
-                        multiline
-                        helperText="Enter message content"
-                        sx={{ m: 1, p: 1 }}        
-                    />
-                    <Button variant="contained">
-                        submit
-                    </Button>
+        <Container maxidth="lg">
+            <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
+                <Grid item xs={12} sm={7}>
+                    <MessageCreator />
+                </Grid>
+                <Grid item xs={12} sm={7}>
+                    <MessageDisplay />
                 </Grid>
             </Grid>
-        </div>
+        </Container>  
     );
 }
 
