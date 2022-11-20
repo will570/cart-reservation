@@ -106,15 +106,15 @@ signIn = async (req, res) => {
 
         //Create token for session 
         const token = jwt.sign(
-            {uid, existingUser_id: existingUser._id}, 
+            {uid}, 
             process.env.TOKEN_KEY, 
             { expiresIn: "1d", }
         );
 
-        existingUser.token = token; 
+        //existingUser.token = token; 
         
         console.log("login successful"); 
-        res.status(200).json(existingUser); 
+        res.status(200).json({token: token}); 
     } catch(error){
         console.log(error);
         res.status(500).json(error);
