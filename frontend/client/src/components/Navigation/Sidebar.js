@@ -9,7 +9,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
 import useAuth from '../../hooks/useAuth.js';
 
-function Sidebar() {
+function Sidebar() { 
 
     const { auth } = useAuth(); 
     const [user, setUser] = useState(null); 
@@ -50,7 +50,7 @@ function Sidebar() {
                         <SidebarLink text = "Message" Icon={MailOutlineIcon} route="/message"/>   
                     </Grid>
 
-                    {user ? ( //if user exists, show logout button, else show login, both takes user to /login page
+                    {auth ? ( //if user exists, show logout button, else show login, both takes user to /login page
                         <Grid item>
                             <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
                         </Grid>
