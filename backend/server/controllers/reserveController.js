@@ -109,7 +109,7 @@ const returnCart = async (req, res) => {
         )
         // Delete reservation
         const deleteReservation = await reservationModel.deleteOne({"cartId": cartId});
-        return res.status(200).json(updateBuilding);
+        return res.status(200).json(cartId);
     } catch (err) {
         return res.status(401).json(err);
     }
