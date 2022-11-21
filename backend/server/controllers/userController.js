@@ -45,12 +45,20 @@ signUp = async (req, res) => {
         //Encrypt password 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
+        //Set admin status 
+        let adminStatus = false; 
+
+        if (uid === "000000000"){
+            adminStatus = true; 
+        }
+
         //Create user 
         const newUser = await userModel.create({
             name, 
             uid, 
             email: email.toLowerCase(), //clean up input 
-            password: encryptedPassword 
+            password: encryptedPassword, 
+            isAdmin: adminStatus
         });
 
         //Create token 

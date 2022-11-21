@@ -4,7 +4,8 @@ const AuthContext = createContext({}); //empty object inside
 
 export const AuthProvider = ({ children }) => { //children: components nested inside AuthProvider
 
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState({});
+  console.log(auth); 
 
   return (
 

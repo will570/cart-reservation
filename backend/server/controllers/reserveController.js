@@ -83,7 +83,7 @@ const reserveCart = async (req, res) => {
             {$pull: {"carts": cart.cartId}},
             {new: true}
         )
-        return res.status(200).json(updateBuilding);
+        return res.status(200).json(cart.cartId);
     } catch (err){
         return res.status(401).json(err);
     }
@@ -109,7 +109,7 @@ const returnCart = async (req, res) => {
         )
         // Delete reservation
         const deleteReservation = await reservationModel.deleteOne({"cartId": cartId});
-        return res.status(200).json(updateBuilding);
+        return res.status(200).json(cartId);
     } catch (err) {
         return res.status(401).json(err);
     }
