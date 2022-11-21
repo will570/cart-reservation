@@ -45,12 +45,20 @@ signUp = async (req, res) => {
         //Encrypt password 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
+        //Set admin status 
+        let adminStatus = false; 
+
+        if (uid === "000000000"){
+            adminStatus = true; 
+        }
+
         //Create user 
         const newUser = await userModel.create({
             name, 
             uid, 
             email: email.toLowerCase(), //clean up input 
-            password: encryptedPassword 
+            password: encryptedPassword, 
+            isAdmin: adminStatus
         });
 
         //Create token 
@@ -106,15 +114,15 @@ signIn = async (req, res) => {
 
         //Create token for session 
         const token = jwt.sign(
-            {uid, existingUser_id: existingUser._id}, 
+            {uid}, 
             process.env.TOKEN_KEY, 
             { expiresIn: "1d", }
         );
 
-        existingUser.token = token; 
+        //existingUser.token = token; 
         
         console.log("login successful"); 
-        res.status(200).json(existingUser); 
+        res.status(200).json({token: token}); 
     } catch(error){
         console.log(error);
         res.status(500).json(error);

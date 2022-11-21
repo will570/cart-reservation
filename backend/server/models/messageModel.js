@@ -1,8 +1,10 @@
-const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
-const replyModel = require('./replyModel')
 
 const messageModel = new mongoose.Schema({
+    title:{
+        type: String,
+        default: null
+    },
     content:{
         type: String,
         default: null
