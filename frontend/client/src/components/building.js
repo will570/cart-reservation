@@ -1,17 +1,19 @@
 import React from 'react';
 import {Button, Typography} from '@material-ui/core';
 import { Box } from '@mui/material';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 function Building(props) {
     /* 
     * This is the building component. 
     */
+    
     const { auth } = useAuth();
     const buildingName = props.name;
     const handleClick = async (buildingName, uid) => {
         const { cartID } = await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
         alert("Successfully reserved the cart at " + buildingName);
-        
     };
     
     return (
