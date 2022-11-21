@@ -33,7 +33,7 @@ signUp = async (req, res) => {
         const existingEmail = await userModel.findOne( { email }); 
 
         if (existingUID) {
-            res.status(400).json({ message: "A user with this UID already exists" }); 
+            res.status(401).json({ message: "A user with this UID already exists" }); 
             return; 
         }
 
