@@ -16,6 +16,11 @@ function Dropdown() {
     const [dataSproul, setDataSproul] = useState([]);
     const [dataRieber, setDataRieber] = useState([]);
     const [dataHedrick, setDataHedrick] = useState([]);
+    const [deNeveHover, setDeNeveHover] = useState(false);
+    const [sproulHover, setSproulHover] = useState(false);
+    const [rieberHover, setRieberHover] = useState(false);
+    const [hedrickHover, setHedrickHover] = useState(false);
+
     const getNumCarts = async (setHallData, name) => {
       console.log(name);
         const { data } = await axios.get(`http://localhost:8800/api/building/getNum/${name}`);
@@ -60,6 +65,15 @@ function Dropdown() {
         <Grid>
           <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setDeNeveHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setDeNeveHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(deNeveHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
@@ -81,6 +95,15 @@ function Dropdown() {
           </Accordion>
           <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setSproulHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setSproulHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(sproulHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2bh-content"
               id="panel2bh-header"
@@ -102,6 +125,15 @@ function Dropdown() {
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setRieberHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setRieberHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(rieberHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel3bh-content"
               id="panel3bh-header"
@@ -123,6 +155,15 @@ function Dropdown() {
           </Accordion>
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setHedrickHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setHedrickHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(hedrickHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel4bh-content"
               id="panel4bh-header"
@@ -147,4 +188,13 @@ function Dropdown() {
     );
   }
 
+  const outerBoxStyle = {
+    fontFamily: "Calisto MT, serif",
+    border: "1px solid black",
+    borderRadius: "10px",
+    transitionDuration: "0.4s"
+  }
+  const hoverStyle = {
+    backgroundColor: "#87CEFA",
+  }
   export default Dropdown;
