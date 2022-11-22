@@ -4,6 +4,9 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import DeNevePlaza from '../image/DeNevePlaza.jpg'
+import SproulHall from '../image/SproulHall.jpg'
+import RieberCourt from '../image/RieberCourt.jpg'
+import HedrickCourt from '../image/HedrickCourt.jpg'
 
 function Building(props) {
     /* 
@@ -17,7 +20,12 @@ function Building(props) {
     return (
         <Box width={0.9}>
             <Box 
-                style={outerBoxStyle}
+                style={{
+                    ...outerBoxStyle,
+                    ...(buildingName === "De Neve Plaza" ? DeNevePicture : null),
+                    ...(buildingName === "Sproul Hall" ? SproulPicture : null),
+                    ...(buildingName === "Rieber Court" ? RieberPicture : null),
+                    ...(buildingName === "Hedrick Court" ? HedrickPicture : null)}}
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
@@ -72,9 +80,21 @@ const outerBoxStyle = {
     alignItems: "flex-start",
     border: '3px solid blue',
     borderRadius: '10px',
-    backgroundImage: `url(${DeNevePlaza})`,
     width: '1',
-    fontFamily: "Calisto MT, serif"
+    fontFamily: "Calisto MT, serif",
+    backgroundSize: '1150px'
+}
+const DeNevePicture = {
+    backgroundImage: `url(${DeNevePlaza})`
+}
+const SproulPicture = {
+    backgroundImage: `url(${SproulHall})`
+}
+const RieberPicture = {
+    backgroundImage: `url(${RieberCourt})`
+}
+const HedrickPicture = {
+    backgroundImage: `url(${HedrickCourt})`
 }
 
 export default Building; 
