@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 
-function SidebarLink({text, Icon, route}) {
+function SidebarLink({text, Icon, route, handleClick}) {
 
     return (
         <div>
