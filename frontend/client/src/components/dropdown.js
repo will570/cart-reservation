@@ -16,21 +16,35 @@ function Dropdown() {
     const [dataSproul, setDataSproul] = useState([]);
     const [dataRieber, setDataRieber] = useState([]);
     const [dataHedrick, setDataHedrick] = useState([]);
-    //console.log('start')
     const getNumCarts = async (setHallData, name) => {
       console.log(name);
         const { data } = await axios.get(`http://localhost:8800/api/building/getNum/${name}`);
         setHallData(data);
-        //console.log(data);
     };
     useEffect(() => {
       getNumCarts(setDataDeNeve, 'De Neve Plaza');
       getNumCarts(setDataSproul, 'Sproul Plaza');
       getNumCarts(setDataRieber, 'Rieber Court');
       getNumCarts(setDataHedrick, 'Hedrick Court');
-      //getNumCarts(setDataHedrick);
   }, []);
 
+  const handleClick = async (buildingName, uid) => {
+    console.log("HERE")
+    await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
+    if(buildingName === "De Neve Plaza"){
+      setDataDeNeve(dataDeNeve - 1);
+    }
+    else if(buildingName === "Sproul Plaza"){
+      setDataSproul(dataSproul - 1);
+    }
+    else if(buildingName === "Rieber Court"){
+      setDataRieber(dataRieber - 1);
+    }
+    else if(buildingName === "Hedrick Court"){
+      setDataHedrick(dataHedrick - 1);
+    }
+    alert("Successfully reserved the cart at " + buildingName);
+  };
     return (
       <div>
         <Grid>
@@ -52,7 +66,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="De Neve Plaza" n_carts={dataDeNeve}/>
+              <Building name="De Neve Plaza" n_carts={dataDeNeve} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -73,7 +87,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Sproul Plaza" n_carts={dataSproul}/>
+              <Building name="Sproul Plaza" n_carts={dataSproul} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -94,7 +108,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Rieber Court" n_carts={dataRieber}/>
+              <Building name="Rieber Court" n_carts={dataRieber} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -115,7 +129,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Hedrick Court" n_carts={dataHedrick}/>
+              <Building name="Hedrick Court" n_carts={dataHedrick} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
         </Grid>
