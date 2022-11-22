@@ -3,6 +3,7 @@ import {Button, Typography} from '@material-ui/core';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
+import DeNevePlaza from '../image/DeNevePlaza.jpg'
 
 function Building(props) {
     /* 
@@ -16,15 +17,7 @@ function Building(props) {
     return (
         <Box width={0.9}>
             <Box 
-                sx={{
-                    component: "fieldset", 
-                    m: 3,
-                    display: "block",
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-                    border: '3px solid blue',
-                    width: '1', 
-                }}
+                style={outerBoxStyle}
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
@@ -69,6 +62,19 @@ function Building(props) {
             </Box>
         </Box>
     );
+}
+
+const outerBoxStyle = {
+    component: "fieldset", 
+    margin: 3,
+    display: "block",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    border: '3px solid blue',
+    borderRadius: '10px',
+    backgroundImage: `url(${DeNevePlaza})`,
+    width: '1',
+    fontFamily: "Calisto MT, serif"
 }
 
 export default Building; 

@@ -23,7 +23,7 @@ function Dropdown() {
     };
     useEffect(() => {
       getNumCarts(setDataDeNeve, 'De Neve Plaza');
-      getNumCarts(setDataSproul, 'Sproul Plaza');
+      getNumCarts(setDataSproul, 'Sproul Hall');
       getNumCarts(setDataRieber, 'Rieber Court');
       getNumCarts(setDataHedrick, 'Hedrick Court');
   }, []);
@@ -33,7 +33,6 @@ function Dropdown() {
       let cartId;
       await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`).then(res => {
         cartId = res.data
-        console.log(cartId);
         if(cartId == "no cart available"){
           alert(`No carts available at ${buildingName}`);
           return;
@@ -41,7 +40,7 @@ function Dropdown() {
         else if(buildingName === "De Neve Plaza"){
           setDataDeNeve(dataDeNeve - 1);
         }
-        else if(buildingName === "Sproul Plaza"){
+        else if(buildingName === "Sproul Hall"){
           setDataSproul(dataSproul - 1);
         }
         else if(buildingName === "Rieber Court"){
@@ -89,7 +88,7 @@ function Dropdown() {
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <Typography component="h2">
-                    Sproul Plaza
+                    Sproul Hall
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
@@ -98,7 +97,7 @@ function Dropdown() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Sproul Plaza" n_carts={dataSproul} handleClick={handleClick}/>
+              <Building name="Sproul Hall" n_carts={dataSproul} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
