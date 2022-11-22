@@ -77,7 +77,6 @@ const Login = () => {
 
         try { //LOGIN_URL will attach itself to baseURL 
             const response = await axios.post(LOGIN_URL, 
-                // payload, 
                 JSON.stringify({uid, password}),
                 {
                     headers: { 'Content-Type': 'application/json'}, 
@@ -86,6 +85,7 @@ const Login = () => {
             );
             
             const token = response.data.token; 
+            localStorage.setItem("user", JSON.stringify(response.data));
 
             setAuth({ uid, password, token, isAdmin }); 
             

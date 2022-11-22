@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Input from '../components/Authentication/Input';
 import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const REGISTER_URL = '/user/signUp';
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -102,7 +102,13 @@ const Register = () => {
                 <SubmitButton type="submit" fullWidth variant="contained">
                     Register
                 </SubmitButton>
-
+                <Grid container justify="flex-end">
+                        <Grid item>
+                            <Button component={Link} to="/login"> 
+                                Already have an account? Sign In 
+                            </Button>
+                        </Grid>
+                    </Grid>
             </form>
             <Grid>
                 {errMsg ?

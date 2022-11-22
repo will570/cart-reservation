@@ -8,9 +8,12 @@ import useAuth from '../../hooks/useAuth';
 const RequireAuth = () => {
     const { auth } = useAuth(); 
     const location = useLocation(); 
+    const user = JSON.parse(localStorage.getItem('user'));
 
     return (
-        auth.uid ? <Outlet /> : <Navigate to="/login" state={{ from : location }} replace />
+        user ? 
+            <Outlet /> 
+        : auth.uid ? <Outlet /> : <Navigate to="/login" state={{ from : location }} replace />
     ); 
 }
 
