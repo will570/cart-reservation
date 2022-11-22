@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const replyModel = new mongoose.Schema({
     content:{
         type: String,
-        default: null
+        required: true
     },
     sender:{
         type: String, // sender uid
