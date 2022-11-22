@@ -11,7 +11,13 @@ import useAuth from '../../hooks/useAuth.js';
 
 function Sidebar() { 
 
-    const { auth } = useAuth(); 
+    const { user, adminStatus } = useAuth(); 
+
+    const handleChange = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("userID");
+        localStorage.removeItem("adminStatus");
+    }
 
     return (
         <Box
@@ -48,18 +54,21 @@ function Sidebar() {
                         <SidebarLink text = "Message" Icon={MailOutlineIcon} route="/message"/>   
                     </Grid>
 
-                    {auth.isAdmin === true ? ( //if user is admin, show admin button, else show nothing 
+                    {adminStatus === true ? ( //if user is admin, show admin button, else show nothing 
                         <Grid item>
-                            <SidebarLink text = "Admin" Icon={PermIdentityIcon} route="/admin/reservationTable" />
+                            <SidebarLink text = "Admin" Icon={PermIdentityIcon} route="/admin/reservationTable"/>
                         </Grid>
                     ) : ( null
                     )}
 
-                    {auth.uid ? ( //if user exists, show logout button, else show login, both takes user to /login page
+                    {user ? ( //if user exists, show logout button, else show login, both takes user to /login page
                         <Grid item>
-                            <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
+                            <div onClick={handleChange}>
+                                <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
+                            </div>
                         </Grid>
                     ) : (
+                        
                         <Grid item>
                             <SidebarLink text = "Login" Icon={PermIdentityIcon} route="/login"/> 
                         </Grid>

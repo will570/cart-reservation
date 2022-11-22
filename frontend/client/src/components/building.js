@@ -1,15 +1,21 @@
 import React from 'react';
 import {Button, Typography} from '@material-ui/core';
 import { Box } from '@mui/material';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 function Building(props) {
     /* 
     * This is the building component. 
     */
-    function handleClick(){
-        alert("Reserved!");
+    
+    const { auth } = useAuth();
+    const buildingName = props.name;
+    const handleClick = async (buildingName, uid) => {
+        const { cartID } = await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
+        alert("Successfully reserved the cart at " + buildingName);
     };
-
+    
     return (
         <Box width={0.9}>
             <Box 
@@ -25,7 +31,7 @@ function Building(props) {
             >
                 <Box justifyContent="space-between" m={3}>
                     <Box component="h2" display="inline">
-                        {props.name} : {props.n_carts} 
+                        {buildingName} : {props.n_carts} 
                     </Box>
                 </Box>
                 <Box sx={{ 
@@ -41,7 +47,7 @@ function Building(props) {
                     <Button variant="contained"
                         p={2}
                         onClick={() => {
-                            handleClick();
+                            handleClick(buildingName, auth.uid);
                         }} 
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                     >
