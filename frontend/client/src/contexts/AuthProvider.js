@@ -4,14 +4,18 @@ const AuthContext = createContext({}); //empty object inside
 
 export const AuthProvider = ({ children }) => { //children: components nested inside AuthProvider
 
-  const [auth, setAuth] = useState({});
-  console.log(auth); 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = JSON.parse(localStorage.getItem('uid'));
+    const adminStatus = JSON.parse(localStorage.getItem('adminStatus'));
 
-  return (
+    const [auth, setAuth] = useState({});
+    console.log(auth); 
 
-    <AuthContext.Provider value={{ auth, setAuth }}>
-      {children}
-    </AuthContext.Provider>
+    return (
+
+        <AuthContext.Provider value={{ user, uid, adminStatus, auth, setAuth }}>
+            {children}
+        </AuthContext.Provider>
 
   );
 };

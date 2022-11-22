@@ -86,6 +86,8 @@ const Login = () => {
             
             const token = response.data.token; 
             localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("userID", uid); 
+            localStorage.setItem("adminStatus", JSON.stringify(isAdmin)); 
 
             setAuth({ uid, password, token, isAdmin }); 
             
