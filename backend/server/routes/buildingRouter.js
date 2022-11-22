@@ -6,7 +6,8 @@ const {
     removeCart,
     getCart,
     getNum,
-    getAll
+    getAll,
+    prioritizeCart
 } = require('../controllers/buildingController');
 
 const buildingRouter = express.Router();
@@ -20,5 +21,6 @@ buildingRouter.post('/addBuilding', addBuilding);           // Create a building
 buildingRouter.get('/getCart/:name', getCart);              // Get the first undamaged cart in carts from building with given name in req.params
 buildingRouter.get('/getNum/:name', getNum);                // Get the number of undamaged cart in the building with given name in re.params
 buildingRouter.get('/getAll', getAll);                      // Get all buildings' information
+buildingRouter.put('/prioritizeCart/:name/:cartId', prioritizeCart);
 module.exports = buildingRouter;
     
