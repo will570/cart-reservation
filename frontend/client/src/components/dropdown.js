@@ -29,21 +29,32 @@ function Dropdown() {
   }, []);
 
   const handleClick = async (buildingName, uid) => {
-    console.log("HERE")
-    await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
-    if(buildingName === "De Neve Plaza"){
-      setDataDeNeve(dataDeNeve - 1);
+    try{
+      let cartId;
+      await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`).then(res => {
+        cartId = res.data
+        console.log(cartId);
+        if(cartId == "no cart available"){
+          alert(`No carts available at ${buildingName}`);
+          return;
+        }
+        else if(buildingName === "De Neve Plaza"){
+          setDataDeNeve(dataDeNeve - 1);
+        }
+        else if(buildingName === "Sproul Plaza"){
+          setDataSproul(dataSproul - 1);
+        }
+        else if(buildingName === "Rieber Court"){
+          setDataRieber(dataRieber - 1);
+        }
+        else if(buildingName === "Hedrick Court"){
+          setDataHedrick(dataHedrick - 1);
+        }
+        alert("Successfully reserved the cart at " + buildingName + `\nYour cartId is ${cartId}`);
+      })
+    } catch (err){
+      alert(err)
     }
-    else if(buildingName === "Sproul Plaza"){
-      setDataSproul(dataSproul - 1);
-    }
-    else if(buildingName === "Rieber Court"){
-      setDataRieber(dataRieber - 1);
-    }
-    else if(buildingName === "Hedrick Court"){
-      setDataHedrick(dataHedrick - 1);
-    }
-    alert("Successfully reserved the cart at " + buildingName);
   };
     return (
       <div>
@@ -120,7 +131,7 @@ function Dropdown() {
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <Typography component="h2">
-                    Hedrick
+                    Hedrick Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
