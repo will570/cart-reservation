@@ -1,10 +1,13 @@
 import { Box, Grid } from "@material-ui/core";
-import React from "react";
-import MessageCreator from "../components/Messages/CreateMessage";
-import MessageDisplay from "../components/Messages/DisplayMessage";
+import React, { useEffect, useState } from "react";
+import MessageConstructor from "../components/Messages/MessageConstructor";
+import MessageBoard from "../components/Messages/MessageBoard";
 import Sidebar from "../components/Navigation/Sidebar";
 
 function MessagePage() {
+    const [currentId, setCurrentId] = useState(null);
+    console.log(currentId);
+
     return (
         <Box sx={{
             flexGrow: 1, 
@@ -17,10 +20,10 @@ function MessagePage() {
                 </Grid>
                 <Grid container item xs direction='row' spacing={3}>
                     <Grid item xs={12} sm={7}>
-                        <MessageDisplay /> 
+                        <MessageBoard setCurrentId={setCurrentId} /> 
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <MessageCreator />
+                        <MessageConstructor currentId={currentId} setCurrentId={setCurrentId} />
                     </Grid>
                 </Grid>
             </Grid>

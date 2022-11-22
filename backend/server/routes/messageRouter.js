@@ -18,7 +18,7 @@ const {
 
 const messageRouter = express.Router();
 
-messageRouter.post('/addMessage', verifyToken, addMessage);
+messageRouter.post('/addMessage', addMessage);
 messageRouter.get('/getAllMessages', getAllMessages);
 messageRouter.put('/editMessage/:_id', editMessage);
 messageRouter.delete('/deleteMessage/:_id', deleteMessage);
