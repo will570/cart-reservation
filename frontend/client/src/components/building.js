@@ -11,10 +11,7 @@ function Building(props) {
     
     const { auth } = useAuth();
     const buildingName = props.name;
-    const handleClick = async (buildingName, uid) => {
-        const { cartID } = await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`);
-        alert("Successfully reserved the cart at " + buildingName);
-    };
+
     
     return (
         <Box width={0.9}>
@@ -47,7 +44,7 @@ function Building(props) {
                     <Button variant="contained"
                         p={2}
                         onClick={() => {
-                            handleClick(buildingName, auth.uid);
+                            props.handleClick(buildingName, auth.uid);
                         }} 
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                     >
