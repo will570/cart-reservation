@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const messageModel = new mongoose.Schema({
     title:{
         type: String,
-        default: null
+        required: true
     },
     content:{
         type: String,
-        default: null
+        required: true
     },
     sender:{
         type: String, // uid from which the message originates
