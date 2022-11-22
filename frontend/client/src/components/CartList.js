@@ -1,7 +1,8 @@
 import axios from 'axios'
-import React, {useEffect} from 'react'
+import React from 'react'
 import Cart from './Cart'
 import Textbox from './Textbox'
+import ReactDOM from 'react-dom/client';
 
 class CartList extends React.Component{
     state = {
@@ -121,4 +122,5 @@ const wrapStyle = {
     overflow: "hidden",
     boxShadow: "0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 9px 30px 0 rgba(0, 0, 0, 0.19)",
 }
+
 export default CartList
