@@ -38,7 +38,7 @@ function Dropdown() {
       let cartId;
       await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`).then(res => {
         cartId = res.data
-        if(cartId == "no cart available"){
+        if(cartId === "no cart available"){
           alert(`No carts available at ${buildingName}`);
           return;
         }
@@ -85,7 +85,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataDeNeve}</Typography>
+                  <Typography component="h2" style={{
+                    ...outerTextStyle,
+                    ...(dataDeNeve > 5 ? plentyStyle : null),
+                    ...(dataDeNeve > 0 && dataDeNeve <= 5 ? lessStyle : null),
+                    ...(dataDeNeve === 0 ? noStyle : null)
+                  }}> {dataDeNeve}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -115,7 +120,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2" style={outerTextStyle}> {dataSproul}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataSproul > 5 ? plentyStyle : null),
+                    ...(dataSproul > 0 && dataSproul <= 5 ? lessStyle : null),
+                    ...(dataSproul === 0 ? noStyle : null)
+                  }}> {dataSproul}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -145,7 +155,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2" style={outerTextStyle}> {dataRieber}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataRieber > 5 ? plentyStyle : null),
+                    ...(dataRieber > 0 && dataRieber <= 5 ? lessStyle : null),
+                    ...(dataRieber === 0 ? noStyle : null)
+                  }}> {dataRieber}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -175,7 +190,12 @@ function Dropdown() {
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2" style={outerTextStyle}> {dataHedrick}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataHedrick > 5 ? plentyStyle : null),
+                    ...(dataHedrick > 0 && dataHedrick <= 5 ? lessStyle : null),
+                    ...(dataHedrick === 0 ? noStyle : null)
+                  }}> {dataHedrick}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -194,9 +214,22 @@ function Dropdown() {
     transitionDuration: "0.4s"
   }
   const outerTextStyle = {
-    fontFamily: "Calisto MT, serif"
+    fontFamily: "Calisto MT, serif",
+    fontSize: "20px"
   }
   const hoverStyle = {
     backgroundColor: "#87CEFA",
+  }
+  const plentyStyle = {
+    fontSize: "25px",
+    color: "#006400"
+  }
+  const lessStyle = {
+    fontSize: "25px",
+    color: "#FF8C00"
+  }
+  const noStyle = {
+    fontSize: "25px",
+    color: "#B22222"
   }
   export default Dropdown;
