@@ -50,22 +50,28 @@ function Building(props) {
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
                         style={textStyle}
                     >
-                        Reserve
+                        reserve
                     </Button>
 
                     <Box sx={{ 
-                        backgroundColor: '#fff59d',
+                        backgroundColor: '#F0F8FF',
                         component: "fieldset",
                         mt: 3,
                         p: 2,
                         display: "block",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
+                        borderRadius: '10px'
                     }}
-                    >  
-                        <Typography variant="h1" component="h2">
-
-                        </Typography>
+                    >
+                    {(buildingName === "De Neve Plaza" ? <><b>address:</b> 351 Charles E. Young Drive West Los Angeles, CA 90024<br />
+                    <b>front desk:</b> 310-825-5451</> : null)}
+                    {(buildingName === "Sproul Hall" ? <><b>address:</b> 240 De Neve Drive Los Angeles, CA 90024<br />
+                    <b>front desk:</b> 310-825-2965</> : null)}
+                    {(buildingName === "Rieber Court" ? <><b>address:</b> 310 De Neve Drive Los Angeles, CA 90024<br />
+                    <b>front desk:</b> 310-825-2275</> : null)}
+                    {(buildingName === "Hedrick Court" ? <><b>address:</b> 250 De Neve Drive Los Angeles, CA 90024<br />
+                    <b>front desk:</b> 310-825-2965</> : null)}
                     </Box>
                 </Box>
             </Box>
@@ -102,6 +108,6 @@ const textStyle = {
 }
 const boxTextStyle = {
     borderRadius: "5px",
-    backgroundColor: "white"
+    backgroundColor: "#F0F8FF"
 }
 export default Building; 
