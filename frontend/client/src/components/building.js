@@ -28,7 +28,7 @@ function Building(props) {
                     ...(buildingName === "Hedrick Court" ? HedrickPicture : null)}}
             >
                 <Box justifyContent="space-between" m={3}>
-                    <Box component="h2" display="inline">
+                    <Box component="h2" display="inline" style={boxTextStyle}>
                         {buildingName} : {props.n_carts} 
                     </Box>
                 </Box>
@@ -48,6 +48,7 @@ function Building(props) {
                             props.handleClick(buildingName, auth.uid);
                         }} 
                         sx={{m: 5, p: 3, backgroundColor: '#ecece4'}}
+                        style={textStyle}
                     >
                         Reserve
                     </Button>
@@ -96,5 +97,11 @@ const RieberPicture = {
 const HedrickPicture = {
     backgroundImage: `url(${HedrickCourt})`
 }
-
+const textStyle = {
+    fontFamily: "Calisto MT, serif"
+}
+const boxTextStyle = {
+    borderRadius: "5px",
+    backgroundColor: "white"
+}
 export default Building; 

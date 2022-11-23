@@ -80,7 +80,7 @@ function Dropdown() {
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     De Neve Plaza
                   </Typography>
                 </Grid>
@@ -110,12 +110,12 @@ function Dropdown() {
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     Sproul Hall
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataSproul}</Typography>
+                  <Typography component="h2" style={outerTextStyle}> {dataSproul}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -140,12 +140,12 @@ function Dropdown() {
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     Rieber Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataRieber}</Typography>
+                  <Typography component="h2" style={outerTextStyle}> {dataRieber}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -170,12 +170,12 @@ function Dropdown() {
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     Hedrick Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataHedrick}</Typography>
+                  <Typography component="h2" style={outerTextStyle}> {dataHedrick}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -189,10 +189,12 @@ function Dropdown() {
   }
 
   const outerBoxStyle = {
-    fontFamily: "Calisto MT, serif",
     border: "1px solid black",
     borderRadius: "10px",
     transitionDuration: "0.4s"
+  }
+  const outerTextStyle = {
+    fontFamily: "Calisto MT, serif"
   }
   const hoverStyle = {
     backgroundColor: "#87CEFA",

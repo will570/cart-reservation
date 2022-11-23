@@ -20,7 +20,7 @@ function ReservationPage() {
                 </Grid>
                 <Grid container item xs direction="column" spacing={5}> 
                     <Grid item xs>
-                        <Typography variant="h2" gutterButtom>
+                        <Typography variant="h2" gutterButtom style={textStyle}>
                             Reservation
                         </Typography>
                     </Grid>
@@ -31,4 +31,7 @@ function ReservationPage() {
     );
 }
 
+const textStyle = {
+    fontFamily: "Calisto MT, serif"
+}
 export default ReservationPage; 
