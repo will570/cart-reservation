@@ -11,7 +11,7 @@ import useAuth from '../../hooks/useAuth.js';
 
 function Sidebar() { 
 
-    const { user, adminStatus } = useAuth(); 
+    const { userToken, adminStatus } = useAuth(); 
 
     const handleChange = () => {
         localStorage.removeItem("user");
@@ -61,7 +61,7 @@ function Sidebar() {
                     ) : ( null
                     )}
 
-                    {user ? ( //if user exists, show logout button, else show login, both takes user to /login page
+                    {userToken ? ( //if user exists, show logout button, else show login, both takes user to /login page
                         <Grid item>
                             <div onClick={handleChange}>
                                 <SidebarLink text = "Logout" Icon={PermIdentityIcon} route="/login"/> 
