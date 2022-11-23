@@ -1,9 +1,22 @@
-import React from "react";
-import { Card, CardActions, CardContent, Button, Typography, makeStyles, CardHeader } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Card, CardActions, CardContent, Button, Typography, makeStyles, CardHeader, Collapse, styled, TextField } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import moment from "moment";
 import axios from "../../api/axios";
+import SingleReply from "./SingleReply";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <Button {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 function SingleMessage({ post, setCurrentId }) {
 
@@ -37,6 +50,13 @@ function SingleMessage({ post, setCurrentId }) {
     },
   });
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+
   const deleteSingleMessage = (id) => {
     try {
       axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
@@ -44,6 +64,25 @@ function SingleMessage({ post, setCurrentId }) {
     } catch (err) {
       alert(err);
     }
+  }
+
+  const [replies, setReplies] = useState([]);
+
+  useEffect(() => {
+    getReplies();
+  });
+
+  const getReplies = async () => {
+    axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
+      const replyList = res.data;
+      setReplies(replyList);
+    });
+  } 
+
+  const [reply, setReply] = useState('');
+
+  const handleClick = async () => {
+    await axios
   }
 
   return (
@@ -58,15 +97,34 @@ function SingleMessage({ post, setCurrentId }) {
         <Typography className={style.title} variant="body1" gutterBottom>{post.content}</Typography>
       </CardContent>
       <CardActions className={style.cardActions}>
-        <Button size='small' color='primary' onClick={() => {}}>
-          <EditIcon fontSize="small" onClick={() => setCurrentId(post._id)} />
+        <Button size='small' color='primary' onClick={() => setCurrentId(post._id)}>
+          <EditIcon fontSize="small" />
           Edit
         </Button>
         <Button size='small' color='primary' onClick={() => deleteSingleMessage(post._id)}>
           <DeleteIcon fontSize="small" />
           Delete
         </Button>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          {!replies ? <Typography /> : replies.map((reply) => (
+            <SingleReply reply={reply} />
+          ))}
+          <TextField variant="outlined" label="Reply" multiline fullWidth value={reply} onChange={(e) => setReply(e.target.value)} />
+          <Button style={{ marginTop: '10px' }} fullWidth disabled={!reply} variant='contained' color='primary' onClick={handleClick} >
+            Reply
+          </Button>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }
