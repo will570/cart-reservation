@@ -16,6 +16,11 @@ function Dropdown() {
     const [dataSproul, setDataSproul] = useState([]);
     const [dataRieber, setDataRieber] = useState([]);
     const [dataHedrick, setDataHedrick] = useState([]);
+    const [deNeveHover, setDeNeveHover] = useState(false);
+    const [sproulHover, setSproulHover] = useState(false);
+    const [rieberHover, setRieberHover] = useState(false);
+    const [hedrickHover, setHedrickHover] = useState(false);
+
     const getNumCarts = async (setHallData, name) => {
       console.log(name);
         const { data } = await axios.get(`http://localhost:8800/api/building/getNum/${name}`);
@@ -23,7 +28,7 @@ function Dropdown() {
     };
     useEffect(() => {
       getNumCarts(setDataDeNeve, 'De Neve Plaza');
-      getNumCarts(setDataSproul, 'Sproul Plaza');
+      getNumCarts(setDataSproul, 'Sproul Hall');
       getNumCarts(setDataRieber, 'Rieber Court');
       getNumCarts(setDataHedrick, 'Hedrick Court');
   }, []);
@@ -33,15 +38,14 @@ function Dropdown() {
       let cartId;
       await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`).then(res => {
         cartId = res.data
-        console.log(cartId);
-        if(cartId == "no cart available"){
+        if(cartId === "no cart available"){
           alert(`No carts available at ${buildingName}`);
           return;
         }
         else if(buildingName === "De Neve Plaza"){
           setDataDeNeve(dataDeNeve - 1);
         }
-        else if(buildingName === "Sproul Plaza"){
+        else if(buildingName === "Sproul Hall"){
           setDataSproul(dataSproul - 1);
         }
         else if(buildingName === "Rieber Court"){
@@ -61,18 +65,32 @@ function Dropdown() {
         <Grid>
           <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setDeNeveHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setDeNeveHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(deNeveHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     De Neve Plaza
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataDeNeve}</Typography>
+                  <Typography component="h2" style={{
+                    ...outerTextStyle,
+                    ...(dataDeNeve > 5 ? plentyStyle : null),
+                    ...(dataDeNeve > 0 && dataDeNeve <= 5 ? lessStyle : null),
+                    ...(dataDeNeve === 0 ? noStyle : null)
+                  }}> {dataDeNeve}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -82,39 +100,67 @@ function Dropdown() {
           </Accordion>
           <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setSproulHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setSproulHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(sproulHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2bh-content"
               id="panel2bh-header"
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
-                    Sproul Plaza
+                  <Typography component="h2" style={outerTextStyle}>
+                    Sproul Hall
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataSproul}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataSproul > 5 ? plentyStyle : null),
+                    ...(dataSproul > 0 && dataSproul <= 5 ? lessStyle : null),
+                    ...(dataSproul === 0 ? noStyle : null)
+                  }}> {dataSproul}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Building name="Sproul Plaza" n_carts={dataSproul} handleClick={handleClick}/>
+              <Building name="Sproul Hall" n_carts={dataSproul} handleClick={handleClick}/>
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setRieberHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setRieberHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(rieberHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel3bh-content"
               id="panel3bh-header"
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     Rieber Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataRieber}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataRieber > 5 ? plentyStyle : null),
+                    ...(dataRieber > 0 && dataRieber <= 5 ? lessStyle : null),
+                    ...(dataRieber === 0 ? noStyle : null)
+                  }}> {dataRieber}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -124,18 +170,32 @@ function Dropdown() {
           </Accordion>
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <AccordionSummary
+              onMouseEnter={()=>{
+                setHedrickHover(true);
+              }} 
+              onMouseLeave={()=>{
+                setHedrickHover(false);
+              }} 
+              style={{
+                ...outerBoxStyle,
+                ...(hedrickHover ? hoverStyle : null)}}
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel4bh-content"
               id="panel4bh-header"
             >
               <Grid container spacing={2}>
                 <Grid item xs={7}>
-                  <Typography component="h2">
+                  <Typography component="h2" style={outerTextStyle}>
                     Hedrick Court
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                  <Typography component="h2"> {dataHedrick}</Typography>
+                  <Typography component="h2"  style={{
+                    ...outerTextStyle,
+                    ...(dataHedrick > 5 ? plentyStyle : null),
+                    ...(dataHedrick > 0 && dataHedrick <= 5 ? lessStyle : null),
+                    ...(dataHedrick === 0 ? noStyle : null)
+                  }}> {dataHedrick}</Typography>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -148,4 +208,28 @@ function Dropdown() {
     );
   }
 
+  const outerBoxStyle = {
+    border: "1px solid black",
+    borderRadius: "10px",
+    transitionDuration: "0.4s"
+  }
+  const outerTextStyle = {
+    fontFamily: "Calisto MT, serif",
+    fontSize: "20px"
+  }
+  const hoverStyle = {
+    backgroundColor: "#87CEFA",
+  }
+  const plentyStyle = {
+    fontSize: "25px",
+    color: "#006400"
+  }
+  const lessStyle = {
+    fontSize: "25px",
+    color: "#FF8C00"
+  }
+  const noStyle = {
+    fontSize: "25px",
+    color: "#B22222"
+  }
   export default Dropdown;
