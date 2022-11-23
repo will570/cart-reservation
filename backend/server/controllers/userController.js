@@ -129,13 +129,18 @@ signIn = async (req, res) => {
     }
 }
 
-// getUser = async (req, res) => {
-//     try {
-//         const user = await UserModel.find
-//     }
-// }
+getUserNameByUID = async (req, res) => {
+    try {
+        const {uid} = req.params;
+        const user = await userModel.findOne({"uid": uid});
+        return res.status(200).json(user.name);
+    } catch (err) {
+        return res.status(404).json("User not found");
+    }
+}
 
 module.exports = { 
     signUp, 
-    signIn
+    signIn,
+    getUserNameByUID
 }

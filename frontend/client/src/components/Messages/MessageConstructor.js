@@ -1,6 +1,7 @@
 import { Button, Paper, TextField, Typography, makeStyles } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
 
 function MessageConstructor({ currentId, setCurrentId }) {
 
@@ -23,9 +24,20 @@ function MessageConstructor({ currentId, setCurrentId }) {
     },
   }));
 
-  // TODO: add "creator" once user session is implemented
+  const { uid } = useAuth();
+  const userID = uid.substring(1, uid.length - 1);
+  const setUserName = async () => {
+    await axios.get(`http://localhost:8800/api/user/getUserName/${userID}`).then(res => {
+      setPostData({ ...postData, creator: res.data });
+    });
+  }
+
+  useEffect(() => {
+    setUserName();
+  }, [postData]);
+
   const [postData, setPostData] = useState({
-    creator: 'To Be Implemented',
+    creator: '',
     title: '',
     message: ''
   });
@@ -58,7 +70,7 @@ function MessageConstructor({ currentId, setCurrentId }) {
 
   const clear = () => {
     setCurrentId(null);
-    setPostData({creator: 'TBD', title: '', message: ''});
+    setPostData({ ...postData, title: '', message: '' });
   }
 
   return (
@@ -67,7 +79,7 @@ function MessageConstructor({ currentId, setCurrentId }) {
         <Typography variant="h6">{currentId ? "Edit" : "Construct"} a Message</Typography>
         <TextField name="title" variant="outlined" label="Title" multiline fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" multiline fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <Button className={style.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>submit</Button>
+        <Button className={style.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth disabled={!(postData.title && postData.message)}>submit</Button>
       </form>
     </Paper>
   );

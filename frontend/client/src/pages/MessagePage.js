@@ -1,12 +1,11 @@
 import { Box, Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MessageConstructor from "../components/Messages/MessageConstructor";
 import MessageBoard from "../components/Messages/MessageBoard";
 import Sidebar from "../components/Navigation/Sidebar";
 
 function MessagePage() {
     const [currentId, setCurrentId] = useState(null);
-    console.log(currentId);
 
     return (
         <Box sx={{
