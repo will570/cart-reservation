@@ -4,8 +4,8 @@ const AuthContext = createContext({}); //empty object inside
 
 export const AuthProvider = ({ children }) => { //children: components nested inside AuthProvider
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    const uid = JSON.parse(localStorage.getItem('uid'));
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const uid = JSON.stringify(localStorage.getItem('userID'));
     const adminStatus = JSON.parse(localStorage.getItem('adminStatus'));
 
     const [auth, setAuth] = useState({});
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => { //children: components nested in
 
     return (
 
-        <AuthContext.Provider value={{ user, uid, adminStatus, auth, setAuth }}>
+        <AuthContext.Provider value={{ userToken, uid, adminStatus, auth, setAuth }}>
             {children}
         </AuthContext.Provider>
 
