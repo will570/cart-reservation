@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Typography, Accordion, AccordionDetails, AccordionSummary, Grid} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {useTheme, useMediaQuery, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from '@mui/material'
 import Building from './building';
 import axios from 'axios';
 
@@ -12,6 +13,18 @@ function Dropdown() {
     };
     
     
+    
+    /*  */
+    const [open, setOpen] = React.useState(false);
+    const [messageTitle, setMessageTitle] = React.useState("");
+    const [userMessage, setUserMessage] = React.useState("");
+
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const handleClose = () => {
+      setOpen(false);
+    };
+
     const [dataDeNeve, setDataDeNeve] = useState([]);
     const [dataSproul, setDataSproul] = useState([]);
     const [dataRieber, setDataRieber] = useState([]);
@@ -39,7 +52,10 @@ function Dropdown() {
       await axios.put(`http://localhost:8800/api/reservation/reserveCart/${buildingName}/${uid}`).then(res => {
         cartId = res.data
         if(cartId === "no cart available"){
-          alert(`No carts available at ${buildingName}`);
+          setMessageTitle("Reservation Failure");
+          setUserMessage(`No carts available at ${buildingName}`);
+          setOpen(true);
+          // alert(`No carts available at ${buildingName}`);
           return;
         }
         else if(buildingName === "De Neve Plaza"){
@@ -54,10 +70,16 @@ function Dropdown() {
         else if(buildingName === "Hedrick Court"){
           setDataHedrick(dataHedrick - 1);
         }
-        alert("Successfully reserved the cart at " + buildingName + `\nYour cartId is ${cartId}`);
+        setMessageTitle("Confirmation \n(Please take a screenshot of this confirmation!)");
+        setUserMessage("Successfully reserved the cart at " + buildingName + `.\nYour Cart ID is ${cartId}.`);
+        setOpen(true);
+        //alert("Successfully reserved the cart at " + buildingName + `\nYour cartID is ${cartId}`);
       })
     } catch (err){
-      alert(err)
+      setMessageTitle("Reservation Error");
+      setUserMessage(err);
+      setOpen(true);
+     //alert(err)
     }
   };
     return (
@@ -204,6 +226,26 @@ function Dropdown() {
             </AccordionDetails>
           </Accordion>
         </Grid>
+        <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {messageTitle}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+          {userMessage}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
     );
   }
