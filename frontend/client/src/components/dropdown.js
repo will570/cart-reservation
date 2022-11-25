@@ -77,9 +77,9 @@ function Dropdown() {
       })
     } catch (err){
       setMessageTitle("Reservation Error");
-      setUserMessage(err);
+      setUserMessage(err.message);
       setOpen(true);
-     //alert(err)
+      // alert(err)
     }
   };
     return (
@@ -226,7 +226,7 @@ function Dropdown() {
             </AccordionDetails>
           </Accordion>
         </Grid>
-        <Dialog
+      <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
