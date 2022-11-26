@@ -32,7 +32,7 @@ function MessageBoard({ setCurrentId }) {
   } 
 
   return (
-    <Box>
+    <Box style={{maxHeight: 600, overflow: 'auto'}}>
       <Grid className={style.mainContainer} container alignItems="stretch" spacing={3}>
         {posts.map((post) => (
           <Grid key={post._id} item xs={12} sm={6}>

@@ -5,6 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import moment from "moment";
 import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
 import SingleReply from "./SingleReply";
 
 const ExpandMore = styled((props) => {
@@ -56,7 +57,6 @@ function SingleMessage({ post, setCurrentId }) {
     setExpanded(!expanded);
   };
 
-
   const deleteSingleMessage = (id) => {
     try {
       axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
@@ -67,28 +67,48 @@ function SingleMessage({ post, setCurrentId }) {
   }
 
   const [replies, setReplies] = useState([]);
+  const [sender, setSender] = useState("");
+
+  const [reply, setReply] = useState('');
+  const { uid } = useAuth();
+  const userID = uid.substring(1, uid.length - 1);
+
+  useEffect(() => {
+    getSender();
+  }, [reply]);
 
   useEffect(() => {
     getReplies();
   });
 
   const getReplies = async () => {
-    axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
+    await axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
       const replyList = res.data;
       setReplies(replyList);
     });
   } 
 
-  const [reply, setReply] = useState('');
+  const getSender = async () => {
+    await axios.get(`http://localhost:8800/api/user/getUserName/${post.sender}`).then(res => {
+      setSender(res.data);
+    })
+  }
 
   const handleClick = async () => {
-    await axios
+    const newReply = {
+      content: reply,
+      sender: userID
+    };
+    const res = await axios.post("http://localhost:8800/api/reply/addReply", newReply);
+    await axios.put(`http://localhost:8800/api/message/addReply/${post._id}/${res.data}`);
+    setReply('');
+    alert("Reply Posted!");
   }
 
   return (
     <Card className={style.card}>
       <div>
-        <Typography className={style.header} variant="body1">{post.sender}</Typography>
+        <Typography className={style.header} variant="body1">{sender}</Typography>
         <Typography className={style.header} variant='body2'>created: {moment(post.createdAt).fromNow()}</Typography>
         <Typography className={style.header} variant='body2'>edited: {moment(post.updatedAt).fromNow()}</Typography>
       </div>
@@ -116,8 +136,8 @@ function SingleMessage({ post, setCurrentId }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {!replies ? <Typography /> : replies.map((reply) => (
-            <SingleReply reply={reply} />
+          {!replies ? <Typography /> : replies.map((oneReply) => (
+            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} />
           ))}
           <TextField variant="outlined" label="Reply" multiline fullWidth value={reply} onChange={(e) => setReply(e.target.value)} />
           <Button style={{ marginTop: '10px' }} fullWidth disabled={!reply} variant='contained' color='primary' onClick={handleClick} >

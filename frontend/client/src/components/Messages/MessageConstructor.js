@@ -1,5 +1,5 @@
 import { Button, Paper, TextField, Typography, makeStyles } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
@@ -26,18 +26,9 @@ function MessageConstructor({ currentId, setCurrentId }) {
 
   const { uid } = useAuth();
   const userID = uid.substring(1, uid.length - 1);
-  const setUserName = async () => {
-    await axios.get(`http://localhost:8800/api/user/getUserName/${userID}`).then(res => {
-      setPostData({ ...postData, creator: res.data });
-    });
-  }
-
-  useEffect(() => {
-    setUserName();
-  }, [postData]);
 
   const [postData, setPostData] = useState({
-    creator: '',
+    creator: userID,
     title: '',
     message: ''
   });
