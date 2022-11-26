@@ -131,7 +131,11 @@ const getAllReplies = async (req, res) => {
         if (!message) {
             return res.status(404).json("message not found");
         }
-        const allReplies = message.replies;
+        const allReplyIds = message.replies;
+        const allReplies = [];
+        for (let i = 0; i < allReplyIds.length; i++) {
+            allReplies[i] = await replyModel.findById(allReplyIds[i]);
+        }
         return res.status(200).json(allReplies)
     } catch (err) {
         return res.status(401).json(err);
