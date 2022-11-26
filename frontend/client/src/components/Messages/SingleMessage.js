@@ -70,7 +70,7 @@ function SingleMessage({ post, setCurrentId }) {
   const [sender, setSender] = useState("");
 
   const [reply, setReply] = useState('');
-  const { uid } = useAuth();
+  const { uid, adminStatus } = useAuth();
   const userID = uid.substring(1, uid.length - 1);
 
   useEffect(() => {
@@ -117,11 +117,11 @@ function SingleMessage({ post, setCurrentId }) {
         <Typography className={style.title} variant="body1" gutterBottom>{post.content}</Typography>
       </CardContent>
       <CardActions className={style.cardActions}>
-        <Button size='small' color='primary' onClick={() => setCurrentId(post._id)}>
+        <Button size='small' color='primary' onClick={() => setCurrentId(post._id)} disabled={(!adminStatus && userID !== post.sender)}>
           <EditIcon fontSize="small" />
           Edit
         </Button>
-        <Button size='small' color='primary' onClick={() => deleteSingleMessage(post._id)}>
+        <Button size='small' color='primary' onClick={() => deleteSingleMessage(post._id)} disabled={(!adminStatus && userID !== post.sender)}>
           <DeleteIcon fontSize="small" />
           Delete
         </Button>

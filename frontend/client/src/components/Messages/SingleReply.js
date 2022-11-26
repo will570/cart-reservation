@@ -2,8 +2,12 @@ import { Button, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import DeleteIcon from "@material-ui/icons/Delete";
+import useAuth from "../../hooks/useAuth";
 
 function SingleReply ({ oneReply, message }) {
+    const { uid, adminStatus } = useAuth();
+    const userID = uid.substring(1, uid.length - 1);
+
     const [sender, setSender] = useState("");
 
     useEffect(() => {
@@ -29,7 +33,7 @@ function SingleReply ({ oneReply, message }) {
     return (
         <div>
             <Typography><strong>{sender}</strong>: {oneReply.content}</Typography>
-            <Button size='small' color='primary' onClick={() => deleteReply(oneReply._id)}>
+            <Button size='small' color='primary' onClick={() => deleteReply(oneReply._id)} disabled={(!adminStatus && userID !== oneReply.sender)}>
                 <DeleteIcon fontSize="small" />
                 Delete
             </Button>
