@@ -10,12 +10,12 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
   git clone url-to-be-updated
   ```
 2. Install packages
-  ```
+  &nbsp;```
   cd cart-reservation/frontend/client
   npm install
   ```
   &nbsp;In another terminal, type
-  ```
+  &nbsp;```
   cd cart-reservation/backend/server
   npm install
   ```
