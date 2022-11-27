@@ -10,15 +10,15 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
   git clone url-to-be-updated
   ```
 2. Install packages
-  &nbsp;```
-  cd cart-reservation/frontend/client
-  npm install
-  ```
+    ```
+    cd cart-reservation/frontend/client
+    npm install
+    ```
   &nbsp;In another terminal, type
-  &nbsp;```
-  cd cart-reservation/backend/server
-  npm install
-  ```
+    ```
+    cd cart-reservation/backend/server
+    npm install
+    ```
  3. Ask a contibutor for .env variables
  4. Run the app on localhost
   In both of the terminals, type
