@@ -1,4 +1,5 @@
 import { Button, Typography } from "@material-ui/core";
+import {useTheme, useMediaQuery, Dialog, DialogActions, DialogTitle} from '@mui/material'
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -24,12 +25,25 @@ function SingleReply ({ oneReply, message }) {
         try {
           axios.delete(`http://localhost:8800/api/reply/deleteReply/${id}`);
           axios.put(`http://localhost:8800/api/message/deleteReply/${message._id}/${id}`);
-          alert("Message Successfully Deleted!")
+          setUserMessage("Message Successfully Deleted!");
+          setOpen(true);
+          // alert("Message Successfully Deleted!")
         } catch (err) {
-          alert(err);
+          setUserMessage(err.message);
+          setOpen(true);
+          // alert(err);
         }
       }
 
+    /* Dialog Box Implementations */
+    const [open, setOpen] = React.useState(false);
+    const [userMessage, setUserMessage] = React.useState("");
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
     return (
         <div>
             <Typography><strong>{sender}</strong>: {oneReply.content}</Typography>
@@ -37,6 +51,21 @@ function SingleReply ({ oneReply, message }) {
                 <DeleteIcon fontSize="small" />
                 Delete
             </Button>
+            <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+            > 
+                <DialogTitle id="responsive-dialog-title">
+                {userMessage}
+                </DialogTitle>
+                <DialogActions>
+                <Button onClick={handleClose} autoFocus>
+                    Close
+                </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
