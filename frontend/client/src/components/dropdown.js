@@ -14,17 +14,18 @@ function Dropdown() {
     
     
     
-    /*  */
+    /* Dialog BoxImplementations */
     const [open, setOpen] = React.useState(false);
     const [messageTitle, setMessageTitle] = React.useState("");
     const [userMessage, setUserMessage] = React.useState("");
-
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const handleClose = () => {
       setOpen(false);
     };
 
+
+    /* Auxilary Implementations for Setting Building Data */
     const [dataDeNeve, setDataDeNeve] = useState([]);
     const [dataSproul, setDataSproul] = useState([]);
     const [dataRieber, setDataRieber] = useState([]);
@@ -82,6 +83,7 @@ function Dropdown() {
       // alert(err)
     }
   };
+
     return (
       <div>
         <Grid>
@@ -226,26 +228,26 @@ function Dropdown() {
             </AccordionDetails>
           </Accordion>
         </Grid>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title">
-          {messageTitle}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-          {userMessage}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">
+            {messageTitle}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+            {userMessage}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

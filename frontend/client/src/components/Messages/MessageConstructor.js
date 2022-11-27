@@ -63,7 +63,7 @@ function MessageConstructor({ currentId, setCurrentId }) {
         // alert("Message Created!");
       }
     } catch (err) {
-      setUserMessage(`Message Edited!`);
+      setUserMessage(`All fields required!`);
       setOpen(true);
       // alert("all fields required");
     }
