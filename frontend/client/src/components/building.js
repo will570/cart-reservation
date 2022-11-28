@@ -85,10 +85,10 @@ const outerBoxStyle = {
     display: "block",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    border: '3px solid blue',
+    border: '2px solid grey',
     borderRadius: '10px',
     width: '1',
-    fontFamily: "Calisto MT, serif",
+    fontFamily: 'Roboto, sans-serif',
     backgroundSize: '1150px'
 }
 const DeNevePicture = {
@@ -104,7 +104,7 @@ const HedrickPicture = {
     backgroundImage: `url(${HedrickCourt})`
 }
 const textStyle = {
-    fontFamily: "Calisto MT, serif"
+    fontFamily: 'Roboto, sans-serif'
 }
 const boxTextStyle = {
     borderRadius: "5px",
