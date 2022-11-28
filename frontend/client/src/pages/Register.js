@@ -6,6 +6,7 @@ import Input from '../components/Authentication/Input';
 import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../image/Cartgoers-logos.jpeg';
 
 const REGISTER_URL = '/user/signUp';
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -86,6 +87,9 @@ const Register = () => {
     const [errMsg, setErrMsg]= useState(null);
 
     return (
+        <>
+        <div style={logoStyle}>
+        </div>
        <Container maxWidth="xs">
         <StyledPaper>
             <Typography variant='h5'>
@@ -116,7 +120,18 @@ const Register = () => {
             </Grid>
         </StyledPaper>
        </Container>
+       </>
     )
 }
 
+const logoStyle = {
+    margin: '0 auto',
+    marginTop: '50px',
+    marginBottom: '0px',
+    backgroundImage: `url(${logo})`,
+    width: '250px',
+    height: '250px',
+    backgroundSize: '250px 250px',
+    borderRadius: '30px',
+}
 export default Register; 

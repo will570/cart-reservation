@@ -154,7 +154,7 @@ const Login = () => {
 }
 const logoStyle = {
     margin: '0 auto',
-    marginTop: '100px',
+    marginTop: '50px',
     marginBottom: '0px',
     backgroundImage: `url(${logo})`,
     width: '250px',
