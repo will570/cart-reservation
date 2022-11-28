@@ -33,9 +33,8 @@ function MessageBoard({ setCurrentId }) {
 
   return (
     <Box style={{maxHeight: 600, overflow: 'auto'}}>
-
       <Grid className={style.mainContainer} container alignItems="stretch" spacing={3}>
-        {posts.map((post) => (
+        {posts.slice(0).reverse().map((post) => (
           <Grid key={post._id} item xs={12} sm={6}>
             <SingleMessage post={post} setCurrentId={setCurrentId} />
           </Grid>
