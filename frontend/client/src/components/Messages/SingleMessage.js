@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardActions, CardContent, Button, Typography, makeStyles, CardHeader, Collapse, styled, TextField } from "@material-ui/core";
+import {useTheme, useMediaQuery, Dialog, DialogActions, DialogTitle} from '@mui/material'
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -51,6 +52,16 @@ function SingleMessage({ post, setCurrentId }) {
     },
   });
 
+  /* Dialog Box Implementations */
+  const [open, setOpen] = React.useState(false);
+  const [userMessage, setUserMessage] = React.useState("");
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -60,9 +71,13 @@ function SingleMessage({ post, setCurrentId }) {
   const deleteSingleMessage = (id) => {
     try {
       axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
-      alert("Message Successfully Deleted!")
+      setUserMessage(`Message Successfully Deleted!`);
+      setOpen(true);
+      //alert("Message Successfully Deleted!")
     } catch (err) {
-      alert(err);
+      setUserMessage(err.message);
+      setOpen(true);
+      // alert(err);
     }
   }
 
@@ -102,7 +117,10 @@ function SingleMessage({ post, setCurrentId }) {
     const res = await axios.post("http://localhost:8800/api/reply/addReply", newReply);
     await axios.put(`http://localhost:8800/api/message/addReply/${post._id}/${res.data}`);
     setReply('');
-    alert("Reply Posted!");
+
+    setUserMessage("Reply Posted!");
+    setOpen(true);
+    // alert("Reply Posted!");
   }
 
   return (
@@ -145,6 +163,21 @@ function SingleMessage({ post, setCurrentId }) {
           </Button>
         </CardContent>
       </Collapse>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      > 
+        <DialogTitle id="responsive-dialog-title">
+          {userMessage}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }
