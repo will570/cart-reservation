@@ -14,10 +14,11 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
     cd cart-reservation/frontend/client
     npm install
     ```
-  &ensp; In another terminal, type
-  
+  &ensp;In another terminal, type
+      '''
       cd cart-reservation/backend/server
       npm install
+      '''
     
  3. Ask a contibutor for .env variables
  4. Run the app on localhost
