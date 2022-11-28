@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import MessageConstructor from "../components/Messages/MessageConstructor";
 import MessageBoard from "../components/Messages/MessageBoard";
@@ -19,6 +19,9 @@ function MessagePage() {
                 </Grid>
                 <Grid container item xs direction='row' spacing={3}>
                     <Grid item xs={12} sm={7}>
+                    <Typography variant="h2" mb={3} gutterButtom style={textStyle}>
+                            Message
+                    </Typography>
                         <MessageBoard setCurrentId={setCurrentId} /> 
                     </Grid>
                     <Grid item xs={12} sm={4}>
@@ -28,6 +31,10 @@ function MessagePage() {
             </Grid>
         </Box>  
     );
+}
+
+const textStyle = {
+    fontFamily: "Calisto MT, serif"
 }
 
 export default MessagePage;

@@ -1,5 +1,6 @@
 import { Button, Paper, TextField, Typography, makeStyles } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import {useTheme, useMediaQuery, Dialog, DialogActions, DialogTitle} from '@mui/material'
+import React, { useState } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
@@ -24,20 +25,20 @@ function MessageConstructor({ currentId, setCurrentId }) {
     },
   }));
 
+  /* Dialog Box Implementations */
+  const [open, setOpen] = React.useState(false);
+  const [userMessage, setUserMessage] = React.useState("");
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const { uid } = useAuth();
   const userID = uid.substring(1, uid.length - 1);
-  const setUserName = async () => {
-    await axios.get(`http://localhost:8800/api/user/getUserName/${userID}`).then(res => {
-      setPostData({ ...postData, creator: res.data });
-    });
-  }
-
-  useEffect(() => {
-    setUserName();
-  }, [postData]);
 
   const [postData, setPostData] = useState({
-    creator: '',
+    creator: userID,
     title: '',
     message: ''
   });
@@ -52,13 +53,19 @@ function MessageConstructor({ currentId, setCurrentId }) {
     try {
       if (currentId) {
         await axios.put(`http://localhost:8800/api/message/editMessage/${currentId}`, newMessage);
-        alert("Message Edited!");
+        setUserMessage(`Message Edited!`);
+        setOpen(true);
+        //alert("Message Edited!");
       } else {
         await axios.post("http://localhost:8800/api/message/addMessage", newMessage);
-        alert("Message Created!");
+        setUserMessage(`Message Created!`);
+        setOpen(true);
+        // alert("Message Created!");
       }
     } catch (err) {
-      alert("all fields required");
+      setUserMessage(`All fields required!`);
+      setOpen(true);
+      // alert("all fields required");
     }
   }
 
@@ -81,6 +88,21 @@ function MessageConstructor({ currentId, setCurrentId }) {
         <TextField name="message" variant="outlined" label="Message" multiline fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <Button className={style.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth disabled={!(postData.title && postData.message)}>submit</Button>
       </form>
+      <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        > 
+          <DialogTitle id="responsive-dialog-title">
+            {userMessage}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
     </Paper>
   );
 }

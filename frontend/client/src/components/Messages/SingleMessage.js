@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardActions, CardContent, Button, Typography, makeStyles, CardHeader, Collapse, styled, TextField } from "@material-ui/core";
+import {useTheme, useMediaQuery, Dialog, DialogActions, DialogTitle} from '@mui/material'
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import moment from "moment";
 import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
 import SingleReply from "./SingleReply";
 
 const ExpandMore = styled((props) => {
@@ -50,45 +52,81 @@ function SingleMessage({ post, setCurrentId }) {
     },
   });
 
+  /* Dialog Box Implementations */
+  const [open, setOpen] = React.useState(false);
+  const [userMessage, setUserMessage] = React.useState("");
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-
   const deleteSingleMessage = (id) => {
     try {
       axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
-      alert("Message Successfully Deleted!")
+      setUserMessage(`Message Successfully Deleted!`);
+      setOpen(true);
+      //alert("Message Successfully Deleted!")
     } catch (err) {
-      alert(err);
+      setUserMessage(err.message);
+      setOpen(true);
+      // alert(err);
     }
   }
 
   const [replies, setReplies] = useState([]);
+  const [sender, setSender] = useState("");
+
+  const [reply, setReply] = useState('');
+  const { uid, adminStatus } = useAuth();
+  const userID = uid.substring(1, uid.length - 1);
+
+  useEffect(() => {
+    getSender();
+  }, [reply]);
 
   useEffect(() => {
     getReplies();
   });
 
   const getReplies = async () => {
-    axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
+    await axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
       const replyList = res.data;
       setReplies(replyList);
     });
   } 
 
-  const [reply, setReply] = useState('');
+  const getSender = async () => {
+    await axios.get(`http://localhost:8800/api/user/getUserName/${post.sender}`).then(res => {
+      setSender(res.data);
+    })
+  }
 
   const handleClick = async () => {
-    await axios
+    const newReply = {
+      content: reply,
+      sender: userID
+    };
+    const res = await axios.post("http://localhost:8800/api/reply/addReply", newReply);
+    await axios.put(`http://localhost:8800/api/message/addReply/${post._id}/${res.data}`);
+    setReply('');
+
+    setUserMessage("Reply Posted!");
+    setOpen(true);
+    // alert("Reply Posted!");
   }
 
   return (
     <Card className={style.card}>
       <div>
-        <Typography className={style.header} variant="body1">{post.sender}</Typography>
+        <Typography className={style.header} variant="body1">{sender}</Typography>
         <Typography className={style.header} variant='body2'>created: {moment(post.createdAt).fromNow()}</Typography>
         <Typography className={style.header} variant='body2'>edited: {moment(post.updatedAt).fromNow()}</Typography>
       </div>
@@ -97,11 +135,11 @@ function SingleMessage({ post, setCurrentId }) {
         <Typography className={style.title} variant="body1" gutterBottom>{post.content}</Typography>
       </CardContent>
       <CardActions className={style.cardActions}>
-        <Button size='small' color='primary' onClick={() => setCurrentId(post._id)}>
+        <Button size='small' color='primary' onClick={() => setCurrentId(post._id)} disabled={(!adminStatus && userID !== post.sender)}>
           <EditIcon fontSize="small" />
           Edit
         </Button>
-        <Button size='small' color='primary' onClick={() => deleteSingleMessage(post._id)}>
+        <Button size='small' color='primary' onClick={() => deleteSingleMessage(post._id)} disabled={(!adminStatus && userID !== post.sender)}>
           <DeleteIcon fontSize="small" />
           Delete
         </Button>
@@ -116,8 +154,8 @@ function SingleMessage({ post, setCurrentId }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {!replies ? <Typography /> : replies.map((reply) => (
-            <SingleReply reply={reply} />
+          {!replies ? <Typography /> : replies.map((oneReply) => (
+            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} />
           ))}
           <TextField variant="outlined" label="Reply" multiline fullWidth value={reply} onChange={(e) => setReply(e.target.value)} />
           <Button style={{ marginTop: '10px' }} fullWidth disabled={!reply} variant='contained' color='primary' onClick={handleClick} >
@@ -125,6 +163,21 @@ function SingleMessage({ post, setCurrentId }) {
           </Button>
         </CardContent>
       </Collapse>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      > 
+        <DialogTitle id="responsive-dialog-title">
+          {userMessage}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }

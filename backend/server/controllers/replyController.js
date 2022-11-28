@@ -4,7 +4,7 @@ const addReply = async (req, res) => {
     try {
         const newReply = new replyModel(req.body);
         await newReply.save();
-        return res.status(200).json("reply added");
+        return res.status(200).json(newReply._id);
     } catch (err) {
         return res.status(401).json(err);
     }
