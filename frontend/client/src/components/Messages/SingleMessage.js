@@ -61,40 +61,35 @@ function SingleMessage({ post, setCurrentId }) {
     setOpen(false);
   };
 
-
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const deleteSingleMessage = (id) => {
+  const deleteSingleMessage = async (id) => {
     try {
-      axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
+      await axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
       setUserMessage(`Message Successfully Deleted!`);
       setOpen(true);
-      //alert("Message Successfully Deleted!")
     } catch (err) {
       setUserMessage(err.message);
       setOpen(true);
-      // alert(err);
     }
   }
 
   const [replies, setReplies] = useState([]);
   const [sender, setSender] = useState("");
 
+  const [clicked, setClicked] = useState(false);
   const [reply, setReply] = useState('');
   const { uid, adminStatus } = useAuth();
   const userID = uid.substring(1, uid.length - 1);
 
   useEffect(() => {
     getSender();
-  }, [reply]);
-
-  useEffect(() => {
     getReplies();
-  });
+  }, [reply, clicked]);
 
   const getReplies = async () => {
     await axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
@@ -106,7 +101,7 @@ function SingleMessage({ post, setCurrentId }) {
   const getSender = async () => {
     await axios.get(`http://localhost:8800/api/user/getUserName/${post.sender}`).then(res => {
       setSender(res.data);
-    })
+    });
   }
 
   const handleClick = async () => {
@@ -120,7 +115,6 @@ function SingleMessage({ post, setCurrentId }) {
 
     setUserMessage("Reply Posted!");
     setOpen(true);
-    // alert("Reply Posted!");
   }
 
   return (
@@ -154,8 +148,8 @@ function SingleMessage({ post, setCurrentId }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {!replies ? <Typography /> : replies.map((oneReply) => (
-            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} />
+          {!replies ? <Typography /> : replies.slice(0).reverse().map((oneReply) => (
+            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} clicked={clicked} setClicked={setClicked} />
           ))}
           <TextField variant="outlined" label="Reply" multiline fullWidth value={reply} onChange={(e) => setReply(e.target.value)} />
           <Button style={{ marginTop: '10px' }} fullWidth disabled={!reply} variant='contained' color='primary' onClick={handleClick} >

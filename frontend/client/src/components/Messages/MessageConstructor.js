@@ -44,28 +44,29 @@ function MessageConstructor({ currentId, setCurrentId }) {
   });
 
   const makePost = async (newPost) => {
-    const newMessage = {
-      title: newPost.title,
-      content: newPost.message,
-      sender: newPost.creator,
-      replies: []
-    }
     try {
       if (currentId) {
-        await axios.put(`http://localhost:8800/api/message/editMessage/${currentId}`, newMessage);
+        const editedMessage = {
+          title: newPost.title,
+          content: newPost.message
+        }
+        await axios.put(`http://localhost:8800/api/message/editMessage/${currentId}`, editedMessage);
         setUserMessage(`Message Edited!`);
         setOpen(true);
-        //alert("Message Edited!");
       } else {
+        const newMessage = {
+          title: newPost.title,
+          content: newPost.message,
+          sender: newPost.creator,
+          replies: []
+        }
         await axios.post("http://localhost:8800/api/message/addMessage", newMessage);
         setUserMessage(`Message Created!`);
         setOpen(true);
-        // alert("Message Created!");
       }
     } catch (err) {
       setUserMessage(`All fields required!`);
       setOpen(true);
-      // alert("all fields required");
     }
   }
 
