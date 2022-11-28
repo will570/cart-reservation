@@ -13,7 +13,7 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
     ```
     cd cart-reservation/frontend/client
     npm install
-    ```
+
   &ensp;In another terminal, type
       ```
       cd cart-reservation/backend/server
