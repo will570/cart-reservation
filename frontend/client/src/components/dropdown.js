@@ -258,7 +258,7 @@ function Dropdown() {
     transitionDuration: "0.4s"
   }
   const outerTextStyle = {
-    fontFamily: "Calisto MT, serif",
+    fontFamily: "Roboto, sans-serif",
     fontSize: "20px"
   }
   const hoverStyle = {
