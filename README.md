@@ -28,7 +28,10 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
       ```
  3. Ask a contibutor for .env variables
  4. Run the app on localhost
-  In both of the terminals, type
+  In both of the terminals, type the following in both terminals
   ```
   npm start
   ```
+## User Manual -- Student
+
+## User Manual -- Admin
