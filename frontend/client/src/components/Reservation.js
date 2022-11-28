@@ -17,7 +17,7 @@ function Reservation({uid, cartId, handleClick}){
         onChange={handleChange}>
             <option style={optionStyle} value="None">Choose a building</option>
             <option style={optionStyle} value="De Neve Plaza">De Neve Plaza</option>
-            <option style={optionStyle} value="Sproul Plaza">Sproul Hall</option>
+            <option style={optionStyle} value="Sproul Hall">Sproul Hall</option>
             <option style={optionStyle} value="Hedrick Court">Hedrick Court</option>
             <option style={optionStyle} value="Rieber Court">Rieber Court</option>
         </select></th>
