@@ -34,7 +34,7 @@ function MessagePage() {
 }
 
 const textStyle = {
-    fontFamily: "Calisto MT, serif"
+    fontFamily: 'Roboto, sans-serif'
 }
 
 export default MessagePage;

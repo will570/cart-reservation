@@ -39,7 +39,7 @@ function Sidebar() {
             wrap="nowrap"
             >
                 <Grid item xs>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom style={textStyle}>
                         Welcome 
                     </Typography>
                 </Grid>
@@ -78,6 +78,10 @@ function Sidebar() {
             </Grid>
         </Box>
     ); 
+}
+
+const textStyle = {
+    fontFamily: 'Roboto, sans-serif'
 }
 
 export default Sidebar; 
