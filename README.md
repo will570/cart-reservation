@@ -12,15 +12,20 @@ This app uses React.js, Material-UI, Node.js, and MongoDB
 2. Install packages
 
     a. In one terminal, type
-    ```
-    cd cart-reservation/frontend/client
-    npm install
-    ```
+      ```
+      cd cart-reservation/frontend/client
+      npm install
+      ```
     b. In another terminal, type
       ```
       cd cart-reservation/backend/server
       npm install
-      ```   
+      ```
+    c. If the above does not work due to some package conflicts, try the following instead
+      ```
+      npm install --force
+      npm audit fix --force
+      ```
  3. Ask a contibutor for .env variables
  4. Run the app on localhost
   In both of the terminals, type
