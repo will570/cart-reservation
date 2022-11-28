@@ -11,11 +11,6 @@ import AdminCartManagement from './pages/AdminCartManagement';
 import Login from './pages/Login';
 import Register from './pages/Register'; 
 
-//Components for testing 
-import Sidebar from './components/Navigation/Sidebar'; 
-import Dropdown from './components/dropdown'; 
-import Input from './components/Authentication/Input'; 
-
 function App() {
 
     return (
@@ -26,6 +21,7 @@ function App() {
                     {/* Public Routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="*" element={<Login />} />
                     
                     {/* Protected Routes */}
                     <Route element={<RequireAuth />}>
@@ -39,11 +35,6 @@ function App() {
                         </Route>
                     </Route>
 
-
-                    {/*Components*/}
-                    <Route path="/sidebar" element={<Sidebar />} />
-                    <Route path="/dropdown" element={<Dropdown />} /> 
-                    <Route path="/input" element={<Input />} /> 
                 </Routes>
             </Router>
         </div>
