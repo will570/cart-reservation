@@ -7,7 +7,8 @@ const {
     getCart,
     getNum,
     getAll,
-    prioritizeCart
+    prioritizeCart,
+    getBuilding
 } = require('../controllers/buildingController');
 
 const buildingRouter = express.Router();

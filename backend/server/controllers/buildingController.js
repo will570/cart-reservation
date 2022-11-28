@@ -179,6 +179,22 @@ const prioritizeCart = async (req, res) => {
         return res.status(401).json(err)
     }
 }
+const getBuilding = async (req, res) => {
+    try{
+        const cartId = req.params;
+        const buildings = await buildingModel.find();
+        for (let i = 0; i < buildings.length; i++){
+            for (let j = 0; j < buildings[i].carts.length; j++){
+                if (cartId === buildings[i].carts[j]){
+                    return res.status(200).json(buildings[i].name);
+                }
+            }
+        }
+        return res.status(200).json("none");
+    } catch (err) {
+        return res.status(401).json(err);
+    }
+}
 module.exports = {
     addBuilding,
     addCart,
@@ -186,5 +202,6 @@ module.exports = {
     getCart,
     getNum,
     getAll,
-    prioritizeCart
+    prioritizeCart,
+    getBuilding
 }

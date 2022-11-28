@@ -72,7 +72,6 @@ function Sidebar() {
                         </Grid>
                     )}
                 </Grid>
-              
             </Grid>
         </Box>
     ); 

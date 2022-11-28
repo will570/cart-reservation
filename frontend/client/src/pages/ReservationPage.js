@@ -3,7 +3,6 @@ import {Grid} from '@material-ui/core';
 import {Typography, Box} from '@mui/material';
 import Dropdown from '../components/dropdown';
 import Sidebar from '../components/Navigation/Sidebar'; 
-import MyReservation from '../components/MyReservations';
 
 function ReservationPage() {
 
@@ -26,7 +25,6 @@ function ReservationPage() {
                         </Typography>
                     </Grid>
                     <Dropdown />
-                    <MyReservation />
                 </Grid>
             </Grid>
         </Box>

@@ -15,15 +15,13 @@ function MyReservations(){
     }, []);
     return(
         <div>
+        <p>My Cart:</p>
         <table>
         {data.map(res => <tr>
-        <th>{res.uid}</th>
         <th>{res.cartId}</th>
         </tr>)}
         </table>
         </div>
     )
 }
-
-// {myReservations.map(res => res.cartId)}
 export default MyReservations
