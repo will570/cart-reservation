@@ -8,6 +8,7 @@ import axios from '../api/axios';
 
 import Input from '../components/Authentication/Input'; 
 import useAuth from '../hooks/useAuth';
+import logo from '../image/Cartgoers-logos.jpeg';
 
 const LOGIN_URL = '/user/signIn';
 
@@ -116,6 +117,9 @@ const Login = () => {
     }
 
     return (
+        <>
+        <div style={logoStyle}>
+        </div>
         <Container maxWidth="xs">
             <StyledPaper>
                 <Typography variant="h5"> 
@@ -145,7 +149,18 @@ const Login = () => {
                 </Grid>
             </StyledPaper>
         </Container>
+        </>
     )
+}
+const logoStyle = {
+    margin: '0 auto',
+    marginTop: '50px',
+    marginBottom: '0px',
+    backgroundImage: `url(${logo})`,
+    width: '250px',
+    height: '250px',
+    backgroundSize: '250px 250px',
+    borderRadius: '30px',
 }
 
 export default Login; 

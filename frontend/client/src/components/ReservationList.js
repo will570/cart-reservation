@@ -45,7 +45,7 @@ class ReservationList extends React.Component{
                     border-collapse: collapse;
                 }
                 th {
-                    font-family: "Calisto MT", serif;
+                    font-family: Calisto MT, serif;
                     height: 40px;
                 }
                 td {

@@ -8,6 +8,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
 import useAuth from '../../hooks/useAuth.js';
+import logo from '../../image/Cartgoers-logos.jpeg';
 
 function Sidebar() { 
 
@@ -38,11 +39,8 @@ function Sidebar() {
             alignItems="center"
             wrap="nowrap"
             >
-                <Grid item xs>
-                    <Typography variant="h5" gutterBottom style={textStyle}>
-                        Welcome 
-                    </Typography>
-                </Grid>
+                    <Box style={logoStyle}>
+                    </Box>
 
                 <Grid item xs container spacing={2} direction="column" wrap="nowrap" zeroMinWidth>
 
@@ -74,14 +72,18 @@ function Sidebar() {
                         </Grid>
                     )}
                 </Grid>
-              
             </Grid>
         </Box>
     ); 
 }
 
-const textStyle = {
-    fontFamily: 'Roboto, sans-serif'
+const logoStyle = {
+    backgroundImage: `url(${logo})`,
+    width: '120px',
+    height: '120px',
+    backgroundSize: '120px 120px',
+    borderRadius: '10px',
+    marginTop: '50px'
 }
 
 export default Sidebar; 
