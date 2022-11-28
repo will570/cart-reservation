@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 
 import RequireAuth from './components/Authentication/RequireAuth';
 import RequireAdmin from './components/Authentication/RequireAdmin';
@@ -21,7 +21,7 @@ function App() {
                     {/* Public Routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="*" element={<Login />} />
+                    <Route path="*" element={<Navigate replace to="/login" />} />
                     
                     {/* Protected Routes */}
                     <Route element={<RequireAuth />}>
@@ -34,7 +34,6 @@ function App() {
                             <Route path="/admin/cartManagement" element={<AdminCartManagement />} />
                         </Route>
                     </Route>
-
                 </Routes>
             </Router>
         </div>
