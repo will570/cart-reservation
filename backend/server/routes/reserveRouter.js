@@ -5,7 +5,8 @@ const {
     removeReservation,
     reserveCart,
     returnCart,
-    getAll
+    getAll,
+    getUser
 } = require('../controllers/reserveController');
 
 const reservationRouter = express.Router();
@@ -18,5 +19,6 @@ reservationRouter.delete("/removeReservation/:cartId", removeReservation);  // r
 reservationRouter.put("/reserveCart/:name/:uid", reserveCart);              // Get a cart from the building with given name, create a reservation with that cartId and uid, and remove that cartId from the building
 reservationRouter.put("/returnCart/:name/:cartId", returnCart);             // Get the cart from the reservation, add the cartId to the building with given name, and delete that reservation 
 reservationRouter.get("/getAll", getAll);                                   // Get all reservations
+reservationRouter.get("/getUser/:uid", getUser);
 
 module.exports = reservationRouter;

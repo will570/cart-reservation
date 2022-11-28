@@ -123,10 +123,22 @@ const getAll = async (req, res) => {
         return res.status(401).json(err);
     }
 }
+
+const getUser = async (req, res) => {
+    try{
+        const {uid} = req.params;
+        const reservations = await reservationModel.find({"uid": uid})
+        return res.status(200).json(reservations);
+    } catch (err) {
+        return res.status(401).json(err);
+    }
+}
+
 module.exports = {
     addReservation,
     removeReservation,
     reserveCart,
     returnCart,
-    getAll
+    getAll,
+    getUser
 }
