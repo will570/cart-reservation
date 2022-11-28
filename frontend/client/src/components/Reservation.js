@@ -45,7 +45,7 @@ const buttonStyle = {
     transitionDuration: "0.4s",
     cursor: "pointer",
     padding: "7px 10px",
-    fontFamily: "Calisto MT, serif"
+    fontFamily: "Calisto MT, serif",
 }
 const buttonHoverStyle = {
     backgroundColor: "#87CEFA",
