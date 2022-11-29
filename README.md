@@ -3,7 +3,7 @@ CS35L group project <br/>
 Aims to create a web app that eases the process of cart reservation on campus, provides up-to-date information to users, and keeps the campus cart reservation system organized. 
 
 ## Setup
-This app uses React.js, Material-UI, Node.js, and MongoDB
+This app uses React.js, Material-UI, Express.js, and MongoDB
 
 1. Clone the repository
   ```
