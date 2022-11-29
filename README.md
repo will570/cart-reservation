@@ -52,3 +52,55 @@ This app uses React.js, Material-UI, Express.js, and MongoDB
 2. Usage <br/>
   The admin can use all functionalities a normal user has. 
   In addition, the admin is able to return carts, add carts, delete carts, and rearrange carts on the admin page. 
+
+## Citations
+
+<details>
+<summary>Citation 1</summary>
+<br>
+"MERN Auth - Login with Email (JWT) + Google OAuth Authentication" 
+<br>
+Author: JavaScript Mastery 
+<br>
+Source: https://www.youtube.com/watch?v=LKlO8vLvUao&t=2500s
+</details>
+
+<details>
+<summary>Citation 2</summary>
+<br>
+"React Protected Routes | Role-Based Authorization | React Router v6" 
+<br>
+Author: Dave Gray  
+<br>
+Source: https://www.youtube.com/watch?v=oUZjO00NkhY&t=1418s
+</details>
+
+<details>
+<summary>Citation 3</summary>
+<br>
+"Learn The MERN Stack - Express & MongoDB Rest API" 
+<br>
+Author: Traversy Media 
+<br>
+Source: https://www.youtube.com/watch?v=-0exw-9YJBo&t=659s
+</details>
+
+<details>
+<summary>Citation 4</summary>
+<br>
+"How to Build an Authentication API with JWT Token in Node.js" 
+<br>
+Author: Idris Olubisi 
+<br>
+Source: https://www.section.io/engineering-education/how-to-build-authentication-api-with-jwt-token-in-nodejs/
+</details>
+
+<details>
+<summary>Citation 5</summary>
+<br>
+"ReactJS Tutorial - 20 - Styling and CSS Basics" 
+<br>
+Author: Codevolution
+<br>
+Source: https://www.youtube.com/watch?v=j5P9FHiBVNo
+</details>
