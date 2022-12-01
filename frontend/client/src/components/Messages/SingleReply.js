@@ -5,7 +5,7 @@ import axios from "../../api/axios";
 import DeleteIcon from "@material-ui/icons/Delete";
 import useAuth from "../../hooks/useAuth";
 
-function SingleReply ({ oneReply, message, clicked, setClicked }) {
+function SingleReply ({ oneReply, message }) {
     const { uid, adminStatus } = useAuth();
     const userID = uid.substring(1, uid.length - 1);
 
@@ -21,15 +21,10 @@ function SingleReply ({ oneReply, message, clicked, setClicked }) {
         })
     }
 
-    const handleDelete = (id) => {
-        setClicked(!clicked);
-        deleteReply(id);
-    }
-
-    const deleteReply = (id) => {
+    const deleteReply = async (id) => {
         try {
-          axios.delete(`http://localhost:8800/api/reply/deleteReply/${id}`);
-          axios.put(`http://localhost:8800/api/message/deleteReply/${message._id}/${id}`);
+          await axios.put(`http://localhost:8800/api/message/deleteReply/${message._id}/${id}`);
+          await axios.delete(`http://localhost:8800/api/reply/deleteReply/${id}`);
           setUserMessage("Reply Successfully Deleted!");
           setOpen(true);
         } catch (err) {
@@ -50,7 +45,7 @@ function SingleReply ({ oneReply, message, clicked, setClicked }) {
     return (
         <div>
             <Typography><strong>{sender}</strong>: {oneReply.content}</Typography>
-            <Button size='small' color='primary' onClick={() => handleDelete(oneReply._id)} disabled={(!adminStatus && userID !== oneReply.sender)}>
+            <Button size='small' color='primary' onClick={() => deleteReply(oneReply._id)} disabled={(!adminStatus && userID !== oneReply.sender)}>
                 <DeleteIcon fontSize="small" />
                 Delete
             </Button>

@@ -69,6 +69,9 @@ function SingleMessage({ post, setCurrentId }) {
 
   const deleteSingleMessage = async (id) => {
     try {
+      for (let i = 0; i < post.replies.length; i++) {
+        await axios.delete(`http://localhost:8800/api/reply/deleteReply/${post.replies[i]}`)
+      }
       await axios.delete(`http://localhost:8800/api/message/deleteMessage/${id}`);
       setUserMessage(`Message Successfully Deleted!`);
       setOpen(true);
@@ -81,7 +84,6 @@ function SingleMessage({ post, setCurrentId }) {
   const [replies, setReplies] = useState([]);
   const [sender, setSender] = useState("");
 
-  const [clicked, setClicked] = useState(false);
   const [reply, setReply] = useState('');
   const { uid, adminStatus } = useAuth();
   const userID = uid.substring(1, uid.length - 1);
@@ -89,7 +91,7 @@ function SingleMessage({ post, setCurrentId }) {
   useEffect(() => {
     getSender();
     getReplies();
-  }, [reply, clicked]);
+  }, [reply, replies]);
 
   const getReplies = async () => {
     await axios.get(`http://localhost:8800/api/message/getAllReplies/${post._id}`).then(res => {
@@ -149,7 +151,7 @@ function SingleMessage({ post, setCurrentId }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {!replies ? <Typography /> : replies.slice(0).reverse().map((oneReply) => (
-            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} clicked={clicked} setClicked={setClicked} />
+            !oneReply ? <Typography /> : <SingleReply key={oneReply._id} oneReply={oneReply} message={post} />
           ))}
           <TextField variant="outlined" label="Reply" multiline fullWidth value={reply} onChange={(e) => setReply(e.target.value)} />
           <Button style={{ marginTop: '10px' }} fullWidth disabled={!reply} variant='contained' color='primary' onClick={handleClick} >
